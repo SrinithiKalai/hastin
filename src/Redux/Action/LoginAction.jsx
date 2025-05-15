@@ -116,10 +116,10 @@ export const cityFailure = (error) => {
 }
 
 
-export const createRequest = (payload) => {
+export const createRequest = (data) => {
     return{
         type : Type.CREATE_REQUEST,
-        payload : payload
+        payload : data
     }
 }
 
