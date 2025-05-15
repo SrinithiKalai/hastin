@@ -107,6 +107,7 @@ export const citySuccess = (data) => {
         payload : data
     }
 }
+
 export const cityFailure = (error) => {
     return{
         type : Type.CITY_FAILURE,
