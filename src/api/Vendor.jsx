@@ -43,10 +43,9 @@ const Vendor = () => {
   useEffect(() => {
     dispatch(countryRequest());
     dispatch(currencyRequest());
-    // dispatch(cityRequest()); // Uncomment if you want to load all cities initially
+    dispatch(cityRequest()); 
   }, [dispatch]);
 
-  // Map countries and currencies to AntD select options format
   const metaCountry = countries.map(meta => ({
     value: meta.id,
     label: meta.name,
@@ -57,10 +56,8 @@ const Vendor = () => {
     label: meta.name,
   }));
 
-  // Filter cities based on selected country
   const metaCities = cities.filter(city => city.countryId === selectedCountry);
 
-  // Handle regular input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevData => ({
@@ -69,11 +66,9 @@ const Vendor = () => {
     }));
   };
 
-  // Handle Select changes
   const handleSelectChange = (name, value) => {
     if (name === "country") {
       setSelectedCountry(value);
-      // Clear city if country changes
       setFormData(prev => ({
         ...prev,
         cityId: "",
@@ -85,13 +80,11 @@ const Vendor = () => {
     }));
   };
 
-  // Add a new empty contact row
   const addContactRow = () => {
     const updated = [...formData.contactList, { name: "", email: "", phone: "", isDefault: false }];
     setFormData({ ...formData, contactList: updated });
   };
 
-  // Delete contact row by index, ensuring at least one remains
   const deleteContactRow = (index) => {
     if (formData.contactList.length === 1) {
       alert("At least one contact is required!");
@@ -102,30 +95,31 @@ const Vendor = () => {
     setFormData({ ...formData, contactList: updated });
   };
 
-  // Update a field for a contact row by index
   const updateContactField = (index, field, value) => {
     const updated = [...formData.contactList];
     updated[index][field] = value;
     setFormData({ ...formData, contactList: updated });
   };
 
-  // Prepare data and dispatch create request
   const createData = () => {
-    const updatedFormData = {
-      ...formData,
-      documentList: formData.documentList || [],
-      createdBy: formData.createdBy || null,
-      contactList: formData.contactList.map(contact => ({
-        ...contact,
-        // normalize phone/mobileNo naming
-        phone: contact.phone || contact.mobileNo || "",
-      })),
-      zipCode: formData.zipCode || 0,
-    };
+  const cleanedContactList = formData.contactList.map(contact => ({
+    ...contact,
+    isDefault: contact.isDefault === "Yes", // convert string to boolean
+    phone: contact.phone || "",
+  }));
 
-    console.log("Payload being sent:", updatedFormData);
-    dispatch(createRequest(updatedFormData));
+  const updatedFormData = {
+    ...formData,
+    contactList: cleanedContactList,
+    documentList: formData.documentList || [],
+    zipCode: Number(formData.zipCode) || 0,
+    createdBy: formData.createdBy || "frontend-user", // Put some valid value
   };
+
+  console.log("Final Payload:", updatedFormData);
+  dispatch(createRequest(updatedFormData));
+};
+
 
   return (
     <div>
