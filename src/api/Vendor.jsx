@@ -104,7 +104,7 @@ const Vendor = () => {
   const createData = () => {
   const cleanedContactList = formData.contactList.map(contact => ({
     ...contact,
-    isDefault: contact.isDefault === "Yes", // convert string to boolean
+    isDefault: contact.isDefault === "Yes", 
     phone: contact.phone || "",
   }));
 
@@ -113,7 +113,7 @@ const Vendor = () => {
     contactList: cleanedContactList,
     documentList: formData.documentList || [],
     zipCode: Number(formData.zipCode) || 0,
-    createdBy: formData.createdBy || "frontend-user", // Put some valid value
+    createdBy: formData.createdBy || "frontend-user", 
   };
 
   console.log("Final Payload:", updatedFormData);
