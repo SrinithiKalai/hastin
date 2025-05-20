@@ -70,17 +70,19 @@ export function validService(payload){
   });
 }
 
+export function createService(payload){
+  console.log("Payload for createService:", payload);
 
-  export function createService(payload){
-    const token = localStorage.getItem("jwt");
-    return axios({
-      method: "POST",
-      url: baseUrl + "api/vendor/create",
-      data: payload,
-      headers: {
-        Authorization: `BslogiKey ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
-  }
+  const token = localStorage.getItem("jwt");
+  return axios({
+    method: "POST",
+    url: baseUrl + "api/vendor/create",
+    data: payload,
+    headers: {
+      Authorization: `BslogiKey ${token}`,
+      'Content-Type': 'application/json'
+    }
+  })
+}
+
   
