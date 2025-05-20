@@ -47,12 +47,12 @@ const Vendor = () => {
   }, [dispatch]);
 
   const metaCountry = countries.map(meta => ({
-    value: meta.id,
+    value: meta.name,
     label: meta.name,
   }));
 
   const metaCurrencies = currencies.map(meta => ({
-    value: meta.id,
+    value: meta.name,
     label: meta.name,
   }));
 
