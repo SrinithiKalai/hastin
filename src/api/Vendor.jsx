@@ -43,7 +43,7 @@ const Vendor = () => {
   useEffect(() => {
     dispatch(countryRequest());
     dispatch(currencyRequest());
-    dispatch(cityRequest()); 
+    dispatch(cityRequest());
   }, [dispatch]);
 
   const metaCountry = countries.map(meta => ({
@@ -102,23 +102,23 @@ const Vendor = () => {
   };
 
   const createData = () => {
-  const cleanedContactList = formData.contactList.map(contact => ({
-    ...contact,
-    isDefault: contact.isDefault === "Yes", 
-    phone: contact.phone || "",
-  }));
+    const cleanedContactList = formData.contactList.map(contact => ({
+      ...contact,
+      isDefault: contact.isDefault === "Yes",
+      phone: contact.phone || "",
+    }));
 
-  const updatedFormData = {
-    ...formData,
-    contactList: cleanedContactList,
-    documentList: formData.documentList || [],
-    zipCode: Number(formData.zipCode) || 0,
-    createdBy: formData.createdBy || "frontend-user", 
+    const updatedFormData = {
+      ...formData,
+      contactList: cleanedContactList,
+      documentList: formData.documentList || [],
+      zipCode: Number(formData.zipCode) || 0,
+      createdBy: formData.createdBy || "frontend-user",
+    };
+
+    console.log("Final Payload:", updatedFormData);
+    dispatch(createRequest(updatedFormData));
   };
-
-  console.log("Final Payload:", updatedFormData);
-  dispatch(createRequest(updatedFormData));
-};
 
 
   return (
@@ -138,15 +138,7 @@ const Vendor = () => {
                 <input type="text" name="vendorName" placeholder="Vendor Name" value={formData.vendorName} onChange={handleChange} />
                 <input type="text" name="vendorCode" placeholder="Vendor Code" value={formData.vendorCode} onChange={handleChange} />
                 <div className="custom-select-wrapper">
-                  <Select
-                    name="vendorType"
-                    value={formData.vendorType || undefined}
-                    placeholder="Choose Vendor Type"
-                    style={{ width: "100%" }}
-                    onChange={(value) => handleSelectChange("vendorType", value)}
-                    className="underline-select"
-                    suffixIcon={null}
-                  >
+                  <Select name="vendorType" value={formData.vendorType || undefined} placeholder="Choose Vendor Type" style={{ width: "100%" }} onChange={(value) => handleSelectChange("vendorType", value)} className="underline-select" suffixIcon={null}>
                     <Select.Option value="Individual">Individual</Select.Option>
                     <Select.Option value="Company">Company</Select.Option>
                   </Select>
@@ -154,16 +146,7 @@ const Vendor = () => {
                 <input className='mt-3' type="text" name="taxRegNo" placeholder="Tax Registration No" value={formData.taxRegNo} onChange={handleChange} />
                 <input type="text" name="companyRegNo" placeholder="Company Registration No" value={formData.companyRegNo} onChange={handleChange} />
                 <div className="custom-select-wrapper">
-                  <Select
-                    showSearch
-                    placeholder="Choose Currency"
-                    style={{ width: "100%" }}
-                    value={formData.currency || undefined}
-                    onChange={(value) => handleSelectChange("currency", value)}
-                    options={metaCurrencies}
-                    className="underline-select"
-                    suffixIcon={null}
-                  />
+                  <Select showSearch placeholder="Choose Currency" style={{ width: "100%" }} value={formData.currency || undefined} onChange={(value) => handleSelectChange("currency", value)} options={metaCurrencies} className="underline-select" suffixIcon={null} />
                 </div>
               </div>
 
@@ -172,29 +155,10 @@ const Vendor = () => {
                 <input type="text" name="address1" placeholder="Address 1" value={formData.address1} onChange={handleChange} />
                 <input type="text" name="address2" placeholder="Address 2" value={formData.address2} onChange={handleChange} />
                 <div className="custom-select-wrapper">
-                  <Select
-                    showSearch
-                    placeholder="Choose Country"
-                    style={{ width: "100%" }}
-                    value={formData.country || undefined}
-                    onChange={(value) => handleSelectChange("country", value)}
-                    options={metaCountry}
-                    className="underline-select"
-                    suffixIcon={null}
-                  />
+                  <Select showSearch placeholder="Choose Country" style={{ width: "100%" }} value={formData.country || undefined} onChange={(value) => handleSelectChange("country", value)} options={metaCountry} className="underline-select" suffixIcon={null} />
                 </div>
                 <div className="custom-select-wrapper">
-                  <Select
-                    showSearch
-                    placeholder="Choose City"
-                    style={{ width: "100%" }}
-                    value={formData.cityId || undefined}
-                    onChange={(value) => handleSelectChange("cityId", value)}
-                    options={metaCities.map(city => ({ value: city.id, label: city.name }))}
-                    className="underline-select mt-3"
-                    suffixIcon={null}
-                    disabled={!selectedCountry}
-                  />
+                  <Select showSearch placeholder="Choose City" style={{ width: "100%" }} value={formData.cityId || undefined} onChange={(value) => handleSelectChange("cityId", value)} options={metaCities.map(city => ({ value: city.id, label: city.name }))} className="underline-select mt-3" suffixIcon={null} disabled={!selectedCountry} />
                 </div>
                 <input className='mt-3' type="text" name="zipCode" placeholder="Zip Code" value={formData.zipCode} onChange={handleChange} />
               </div>
@@ -241,13 +205,7 @@ const Vendor = () => {
                       <input type="text" placeholder="Phone" value={contact.phone} onChange={(e) => updateContactField(index, 'phone', e.target.value)} />
                     </td>
                     <td className="custom-select-wrapper">
-                      <Select
-                        value={contact.isDefault || undefined}
-                        placeholder="Is Default"
-                        suffixIcon={null}
-                        onChange={(value) => updateContactField(index, 'isDefault', value)}
-                        className="underline-select"
-                      >
+                      <Select value={contact.isDefault || undefined} placeholder="Is Default" suffixIcon={null} onChange={(value) => updateContactField(index, 'isDefault', value)} className="underline-select">
                         <Select.Option value="Yes">Yes</Select.Option>
                         <Select.Option value="No">No</Select.Option>
                       </Select>
