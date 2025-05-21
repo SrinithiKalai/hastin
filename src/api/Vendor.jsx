@@ -246,7 +246,7 @@ const Vendor = () => {
                     </td>
                     <td className="custom-select-wrapper">
                       <Select
-                        value={contact.isDefault ? "Yes" : "No"}
+                        // value={contact.isDefault ? "Yes" : "No"}
                         placeholder="Is Default"
                         suffixIcon={null}
                         onChange={(value) => updateContactField(index, 'isDefault', value)}
