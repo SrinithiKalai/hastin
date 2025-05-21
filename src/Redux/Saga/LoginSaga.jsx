@@ -70,8 +70,7 @@ function* createSaga({payload}){
     yield put(createSuccess(createResponse.data));
   }
   catch(err){
-    console.error("Create API error:", err.response ? err.response.data : err.message);
-    yield put(createFailure(err.response ? err.response.data : err.message));
+    yield put(createFailure(err));
   }
 }
 
