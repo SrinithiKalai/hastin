@@ -1,32 +1,32 @@
-import { CREATE_FAILURE, CREATE_REQUEST, CREATE_SUCCESS } from "../Types";
+import { CREATE_REQUEST, CREATE_SUCCESS, CREATE_FAILURE } from "../Types";
 
 const initialState = {
     loading: false,
     error: null,
-    createData:null,
+    createData: null,
 };
-
-export const createReducer = (state = initialState, action) => {
+export const CreateReducer = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_REQUEST:
             return {
                 ...state,
                 loading: true,
-                error: null
+                error: null,
             };
         case CREATE_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                 createData: action.payload
+                createData: action.payload
             };
         case CREATE_FAILURE:
             return {
                 ...state,
                 loading: false,
-                error: action.payload
+                error: action.payload,
             };
         default:
             return state;
     }
-};
+
+}

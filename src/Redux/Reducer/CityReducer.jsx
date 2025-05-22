@@ -1,18 +1,17 @@
-import { CITY_FAILURE, CITY_REQUEST, CITY_SUCCESS } from "../Types";
+import { CITY_REQUEST, CITY_SUCCESS, CITY_FAILURE } from "../Types";
 
 const initialState = {
     loading: false,
     error: null,
-    cityData:null,
+    cityData: null,
 };
-
-export const cityReducer = (state = initialState, action) => {
+export const CityReducer = (state = initialState, action) => {
     switch (action.type) {
         case CITY_REQUEST:
             return {
                 ...state,
                 loading: true,
-                error: null
+                error: null,
             };
         case CITY_SUCCESS:
             return {
@@ -24,9 +23,10 @@ export const cityReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                error: action.payload
+                error: action.payload,
             };
         default:
             return state;
     }
-};
+
+}

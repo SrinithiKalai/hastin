@@ -1,1 +1,0 @@
-export const baseUrl = "https://hastin-container.com/staging/"

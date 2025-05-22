@@ -1,0 +1,30 @@
+.vendor-table {
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.vendor-table th {
+  background-color: #011c69;
+  color: white;
+  height: 40px;
+  font-size: 13px;
+  padding: 8px;
+}
+
+.vendor-table td {
+  border-bottom: 1px solid #ddd;
+  padding: 8px;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+.vendor-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.vendor-table tr:hover {
+  background-color: #f1f1f1;
+}

@@ -1,85 +1,95 @@
-import { activeFailure, activeSuccess, cityFailure, citySuccess, countryFailure, countrySuccess, createFailure, createSuccess, currencyFailure, currencySuccess, loginFailure, loginSuccess, validFailure, validSuccess } from "../Action/LoginAction";
-import { activeService, cityService, countryService, createService, currencyService, loginService, validService } from "../Service/LoginService";
-import * as Type from "../Types";
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { apiinFailure, apiSuccess, cityFailure, citySuccess, countryFailure, countrySuccess, createFailure, createSuccess, currencieFailure, currencieSuccess, loginFailure, loginSuccess, tableFailure, tableSuccess, updateFailure, updateSuccess } from '../Action/LoginAction'
+import { apiService, cityService, countryService, createService, currencieService, loginService, tableService, updateService } from '../Service/LoginService'
+import * as TYPE from '../Types'
+import { call, put, takeLatest } from 'redux-saga/effects'
 
-function* loginSaga({payload}){
-try{
-     const loginResponse = yield call(loginService, payload);
-     yield put (loginSuccess(loginResponse.data))
-}
-catch(err){
-     yield put(loginFailure(err))
-}
-}
-
-function* validSaga({payload}){
-     try{
-          const validResponse = yield call(validService, payload);
-          yield put (validSuccess(validResponse.data))
-     }
-     catch(err){
-          yield put(validFailure(err))
-     }
-}
-
-function* activeSaga({payload}){
-     try{
-          const activeResponse = yield call(activeService, payload);
-          yield put(activeSuccess(activeResponse.data))
-     }
-     catch(err){
-          yield put(activeFailure(err))
-     }
-}
-
-function* countrySaga({payload}){
-     try{
-          const countryResponse = yield call(countryService, payload);
-          yield put(countrySuccess(countryResponse.data))
-     }
-     catch(err){
-          yield put(countryFailure(err))
-     }
-}
-
-function* currencySaga({payload}){
-     try{
-          const currencyResponse = yield call(currencyService, payload);
-          yield put(currencySuccess(currencyResponse.data))
-     }
-     catch(err){
-          yield put(currencyFailure(err))
-     }
-}
-
-function* citySaga({payload}){
-     try{
-          const cityResponse = yield call(cityService, payload);
-          yield put(citySuccess(cityResponse.data))
-     }
-     catch(err){
-          yield put(cityFailure(err))
-     }
-}
-
-function* createSaga({payload}){
-  try{
-    const createResponse = yield call(createService, payload);
-    yield put(createSuccess(createResponse.data));
+function* loginSaga({ payload }) {
+  try {
+    const loginResponse = yield call(loginService, payload);
+    yield put(loginSuccess(loginResponse.data));
   }
-  catch(err){
-    yield put(createFailure(err));
+  catch (err) {
+    yield put(loginFailure(err))
   }
 }
 
+function* apiSaga({ payload }) {
+  try {
+    const loginResponse = yield call(apiService, payload);
+    yield put(apiSuccess(loginResponse.data));
+  }
+  catch (err) {
+    yield put(apiinFailure(err))
+  }
+}
 
-export default function* SagaLogin(){
-    yield takeLatest(Type.LOGIN_REQUEST,loginSaga);
-    yield takeLatest(Type.VALIDATE_REQUEST,validSaga );
-    yield takeLatest(Type.ACTIVE_REQUEST,activeSaga);
-    yield takeLatest(Type.COUNTRY_REQUEST,countrySaga);
-    yield takeLatest(Type.CURRENCY_REQUEST,currencySaga);
-    yield takeLatest(Type.CITY_REQUEST, citySaga);
-    yield takeLatest(Type.CREATE_REQUEST, createSaga);
+function* tableSaga({ payload }) {
+  try {
+    const loginResponse = yield call(tableService, payload);
+    yield put(tableSuccess(loginResponse.data));
+  }
+  catch (err) {
+    yield put(tableFailure(err))
+  }
+}
+
+function* countrySaga({ payload }) {
+  try {
+    const loginResponse = yield call(countryService, payload);
+    yield put(countrySuccess(loginResponse.data));
+  }
+  catch (err) {
+    yield put(countryFailure(err))
+  }
+}
+
+function* currencieSaga({ payload }) {
+  try {
+    const loginResponse = yield call(currencieService, payload);
+    yield put(currencieSuccess(loginResponse.data));
+  }
+  catch (err) {
+    yield put(currencieFailure(err))
+  }
+}
+
+function* citySaga({ payload }) {
+  try {
+    const loginResponse = yield call(cityService, payload);
+    yield put(citySuccess(loginResponse.data));
+  }
+  catch (err) {
+    yield put(cityFailure(err))
+  }
+}
+
+function* createSaga({ payload }) {
+  try {
+    const loginResponse = yield call(createService, payload);
+    yield put(createSuccess(loginResponse.data));
+  }
+  catch (err) {
+    yield put(createFailure(err))
+  }
+}
+
+function* updateSaga({ payload }) {
+  try {
+    const loginResponse = yield call(updateService, payload);
+    yield put(updateSuccess(loginResponse.data));
+  }
+  catch (err) {
+    yield put(updateFailure(err))
+  }
+}
+
+export default function* login() {
+  yield takeLatest(TYPE.LOGIN_REQUEST, loginSaga);
+  yield takeLatest(TYPE.API_REQUEST, apiSaga);
+  yield takeLatest(TYPE.TABLE_REQUEST, tableSaga);
+  yield takeLatest(TYPE.COUNTRY_REQUEST, countrySaga);
+  yield takeLatest(TYPE.CURRENCIE_REQUEST, currencieSaga);
+  yield takeLatest(TYPE.CITY_REQUEST, citySaga);
+  yield takeLatest(TYPE.CREATE_REQUEST, createSaga);
+  yield takeLatest(TYPE.HASTINUPDATE_REQUEST, updateSaga);
 }

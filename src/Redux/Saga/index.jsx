@@ -1,7 +1,7 @@
-import {all} from 'redux-saga/effects'
-import SagaLogin from './LoginSaga'
+import { all } from "redux-saga/effects";
+import login from'./Loginsaga'
 export default function* rootSaga(){
     yield all([
-        SagaLogin()
+        login()
     ])
 }

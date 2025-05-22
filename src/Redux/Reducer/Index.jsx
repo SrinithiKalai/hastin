@@ -1,16 +1,17 @@
-import { combineReducers } from "redux";
-import { loginReducer } from "./LoginReducer";
-import { cityReducer } from "./CityReducer";
-import { createReducer } from "./CreateReducer";
-import { countryReducer } from "./CountryReducer";
-import { currencyReducer } from "./CurrencyReducer";
-
+import { combineReducers } from 'redux';
+import { loginReducer } from './LoginReducer'
+import { currencyReducer } from './CurrencyReducer';
+import { CountryReducer } from './CountryReducer';
+import { CityReducer } from './CityReducer';
+import { CreateReducer } from './CeateReducer';
+import { updateReducer } from './UpdateReducer';
 const rootReducer = combineReducers({
-    login:loginReducer,
-    city:cityReducer,
-    country:countryReducer,
-    currency:currencyReducer,
-    create:createReducer
+    loginReducer,
+    currencyReducer,
+    CountryReducer,
+    CityReducer,
+    CreateReducer,
+    updateReducer
 })
 
 export default rootReducer;

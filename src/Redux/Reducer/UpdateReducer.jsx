@@ -1,25 +1,27 @@
-import { COUNTRY_REQUEST, COUNTRY_SUCCESS, COUNTRY_FAILURE } from "../Types";
+import { HASTINUPDATE_FAILURE, HASTINUPDATE_REQUEST, HASTINUPDATE_SUCCESS } from "../Types";
 
 const initialState = {
     loading: false,
     error: null,
-    countryData: null,
+    updateData: null,
 };
-export const CountryReducer = (state = initialState, action) => {
+export const updateReducer = (state = initialState, action) => {
+
     switch (action.type) {
-        case COUNTRY_REQUEST:
+        case HASTINUPDATE_REQUEST:
             return {
                 ...state,
                 loading: true,
                 error: null,
             };
-        case COUNTRY_SUCCESS:
+        case HASTINUPDATE_SUCCESS:
+
             return {
                 ...state,
                 loading: false,
-                countryData: action.payload
+                createData: action.payload
             };
-        case COUNTRY_FAILURE:
+        case HASTINUPDATE_FAILURE:
             return {
                 ...state,
                 loading: false,

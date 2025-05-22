@@ -1,32 +1,32 @@
-import { CURRENCY_FAILURE, CURRENCY_REQUEST, CURRENCY_SUCCESS } from "../Types";
+import { CURRENCIE_REQUEST, CURRENCIE_FAILURE, CURRENCIE_SUCCESS } from "../Types";
 
 const initialState = {
     loading: false,
     error: null,
     currencyData: null,
 };
-
 export const currencyReducer = (state = initialState, action) => {
+
     switch (action.type) {
-        case CURRENCY_REQUEST:
+        case CURRENCIE_REQUEST:
             return {
                 ...state,
                 loading: true,
-                error: null
+                error: null,
             };
-        case CURRENCY_SUCCESS:
+        case CURRENCIE_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 currencyData: action.payload
             };
-        case CURRENCY_FAILURE:
+        case CURRENCIE_FAILURE:
             return {
                 ...state,
                 loading: false,
-                error: action.payload
+                error: action.payload,
             };
         default:
             return state;
     }
-};
+}

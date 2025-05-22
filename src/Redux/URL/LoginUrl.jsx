@@ -1,0 +1,1 @@
+export const Hastin ="https://hastin-container.com/staging/"

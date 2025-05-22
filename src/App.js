@@ -1,22 +1,19 @@
-import './App.css';
-import 'primereact/resources/themes/lara-light-indigo/theme.css';
-import 'primereact/resources/primereact.min.css';
-import 'primeicons/primeicons.css';
-import 'primeflex/primeflex.css';
-import Navbar from './api/Navbar';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Login from './api/Login';
-import Vendor from './api/Vendor';
+import "bootstrap/dist/css/bootstrap.min.css";
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import HastinLogin from "./react-api/HastinLogin";
+import HastinTable from"./react-api/HastinTable"
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
 function App() {
   return (
-    <BrowserRouter>
+    <div>
+      <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Login />} />
-        <Route path='/navbar' element={<Navbar />} />
-        <Route path='/vendorPage' element={<Vendor />} />
+     <Route path="/" element={<HastinLogin/>}/>
+     <Route path="table/" element={<HastinTable/>}/>
       </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
+    </div>
   );
 }
 
