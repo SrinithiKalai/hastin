@@ -64,7 +64,6 @@ export function cityService() {
   return axios({
     method: "GET",
     url: Hastin + "api/countryCities/get",
-
     headers: {
       Authorization: `BslogiKey ${token}`
     }
@@ -77,20 +76,29 @@ export function createService(payload) {
     method: "POST",
     url: Hastin + "api/vendor/create",
     data: payload,
-
     headers: {
       Authorization: `BslogiKey ${token}`
     }
   });
 }
 
+export function getIdService(id, data) {
+  const token = localStorage.getItem("jwt");
+  return axios({
+    method: "GET",
+    url: Hastin + "api/vendor/get/" + id,
+    headers: {
+      Authorization: `BslogiKey ${token}`
+    }
+  })
+}
+
 export function updateService(payload) {
   const token = localStorage.getItem("jwt");
   return axios({
-    method: "UPDATE",
-    url: Hastin + "api/vendor/create",
+    method: "PUT",
+    url: Hastin + "api/vendor/update",
     data: payload,
-
     headers: {
       Authorization: `BslogiKey ${token}`
     }

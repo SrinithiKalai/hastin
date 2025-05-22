@@ -1,26 +1,26 @@
-import { HASTINUPDATE_FAILURE, HASTINUPDATE_REQUEST, HASTINUPDATE_SUCCESS } from "../Types";
+import { GET_ID_FAILURE, GET_ID_REQUEST, GET_ID_SUCCESS } from "../Types";
 
 const initialState = {
     loading: false,
     error: null,
-    updateData: null,
+    editData: null,
 };
-export const updateReducer = (state = initialState, action) => {
+export const getIdReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case HASTINUPDATE_REQUEST:
+        case GET_ID_REQUEST:
             return {
                 ...state,
                 loading: true,
                 error: null,
             };
-        case HASTINUPDATE_SUCCESS:
+        case GET_ID_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                createData: action.payload
+                editData: action.payload
             };
-        case HASTINUPDATE_FAILURE:
+        case GET_ID_FAILURE:
             return {
                 ...state,
                 loading: false,

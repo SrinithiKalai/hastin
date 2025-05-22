@@ -133,6 +133,25 @@ export const createFailure = (error) => {
     }
 }
 
+export const getIdRequest = (id) => {
+    return {
+        type: Type.GET_ID_REQUEST,
+        payload: id
+    }
+}
+export const getIdSuccess = (data) => {
+    return {
+        type: Type.GET_ID_SUCCESS,
+        payload: data
+    }
+}
+export const getIdFailure = (error) => {
+    return {
+        type: Type.GET_ID_FAILURE,
+        payload: error
+    }
+}
+
 export const updateRequest = (data) => {
     return {
         type: Type.HASTINUPDATE_REQUEST,
