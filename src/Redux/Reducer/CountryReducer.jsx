@@ -2,8 +2,8 @@ import { COUNTRY_FAILURE, COUNTRY_REQUEST, COUNTRY_SUCCESS } from "../Types";
 
 const initialState = {
     loading: false,
-    data: [],
-    error: null
+    error: null,
+    countryData:null,
 };
 
 export const countryReducer = (state = initialState, action) => {
@@ -18,7 +18,7 @@ export const countryReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                data: action.payload.data
+                countryData: action.payload
             };
         case COUNTRY_FAILURE:
             return {

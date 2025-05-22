@@ -65,7 +65,6 @@ function* citySaga({payload}){
 
 function* createSaga({payload}){
   try{
-    console.log("Create API payload:", payload);
     const createResponse = yield call(createService, payload);
     yield put(createSuccess(createResponse.data));
   }

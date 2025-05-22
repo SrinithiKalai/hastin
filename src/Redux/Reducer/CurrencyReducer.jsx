@@ -2,8 +2,8 @@ import { CURRENCY_FAILURE, CURRENCY_REQUEST, CURRENCY_SUCCESS } from "../Types";
 
 const initialState = {
     loading: false,
-    data: [],
-    error: null
+    error: null,
+    currencyData: null,
 };
 
 export const currencyReducer = (state = initialState, action) => {
@@ -18,7 +18,7 @@ export const currencyReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                data: action.payload.data
+                currencyData: action.payload
             };
         case CURRENCY_FAILURE:
             return {

@@ -95,10 +95,10 @@ export const currencyFailure = (error) => {
     }
 }
 
-export const cityRequest = (data) => {
+export const cityRequest = (payload) => {
     return{
         type : Type.CITY_REQUEST,
-        payload : data
+        payload,
     }
 }
 export const citySuccess = (data) => {
@@ -116,10 +116,10 @@ export const cityFailure = (error) => {
 }
 
 
-export const createRequest = (data) => {
+export const createRequest = (payload) => {
     return{
         type : Type.CREATE_REQUEST,
-        payload : data
+        payload,
     }
 }
 

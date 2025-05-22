@@ -2,8 +2,8 @@ import { CITY_FAILURE, CITY_REQUEST, CITY_SUCCESS } from "../Types";
 
 const initialState = {
     loading: false,
-    data: [],
-    error: null
+    error: null,
+    cityData:null,
 };
 
 export const cityReducer = (state = initialState, action) => {
@@ -18,7 +18,7 @@ export const cityReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                data: action.payload.data
+                cityData: action.payload
             };
         case CITY_FAILURE:
             return {

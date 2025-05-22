@@ -2,8 +2,8 @@ import { CREATE_FAILURE, CREATE_REQUEST, CREATE_SUCCESS } from "../Types";
 
 const initialState = {
     loading: false,
-    data: [],
-    error: null
+    error: null,
+    createData:null,
 };
 
 export const createReducer = (state = initialState, action) => {
@@ -18,7 +18,7 @@ export const createReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                data: [...state.data, action.payload]
+                 createData: action.payload
             };
         case CREATE_FAILURE:
             return {

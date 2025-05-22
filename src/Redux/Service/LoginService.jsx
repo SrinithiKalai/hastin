@@ -58,12 +58,11 @@ export function validService(payload){
     })
   }
 
-  export function cityService(payload){
+  export function cityService(){
   const token = localStorage.getItem("jwt");
   return axios({
     method: "GET",
     url: baseUrl + "api/countryCities/get",
-    params: payload,
     headers: {
       Authorization: `BslogiKey ${token}`
     } 
@@ -71,16 +70,13 @@ export function validService(payload){
 }
 
 export function createService(payload){
-  console.log("Payload for createService:", payload);
-
-  const token = localStorage.getItem("jwt");
+const token = localStorage.getItem("jwt");
   return axios({
     method: "POST",
     url: baseUrl + "api/vendor/create",
     data: payload,
     headers: {
-      Authorization: `BslogiKey ${token}`,
-      'Content-Type': 'application/json'
+      Authorization: `BslogiKey ${token}`
     }
   })
 }
