@@ -98,7 +98,7 @@ function Vendor() {
                                     <div className='card' style={{ width: "450px", height: "320px", boxShadow: "2px 2px 10px rgba(0,0,0,0.2)", marginLeft: "30px" }}>
                                         <input className='mx-auto mt-4' placeholder='Vendor Name' style={{ border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none" }} value={vendorData.vendorName} onChange={e => handleInputChange('vendorName', e.target.value)} />
                                         <input className='mx-auto mt-4' placeholder='Vendor Code' style={{ border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none" }} value={vendorData.vendorCode} onChange={e => handleInputChange('vendorCode', e.target.value)} />
-                                        <select placeholder="Choose Vendor Type" className='mx-auto mt-4' style={{color: "#808080", border: "none", borderBottom: "2px solid #D3D3D3", width: "400px", fontSize: "14px", outline: "none", backgroundColor: "transparent" }} value={vendorData.vendorType} onChange={e => handleInputChange('vendorType', e.target.value)}>
+                                        <select className='mx-auto mt-4' style={{color: "#808080", border: "none", borderBottom: "2px solid #D3D3D3", width: "400px", fontSize: "14px", outline: "none", backgroundColor: "transparent" }} value={vendorData.vendorType} onChange={e => handleInputChange('vendorType', e.target.value)}>
                                             <option value="">Choose Vendor Type</option>
                                             <option value="Individual">Individual</option>
                                             <option value="Company">Company</option>
