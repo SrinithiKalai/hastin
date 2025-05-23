@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginRequest } from '../Redux/Action/LoginAction'
 import Modal from './Dialog';
 import * as Yup from 'yup';
+import image1 from "../assets/image1.jpeg";
 
 function HastinLogin() {
     const [userName, setName] = useState("");
@@ -47,12 +48,12 @@ function HastinLogin() {
     };
 
     return (
-        <div>
-            <div className='card mx-auto mt-5' style={{ width: "450px", height: "400px", boxShadow: "2px 2px 10px #D3D3D3" }}>
+        <div style={{backgroundImage: `url(${image1})`, backgroundSize: "cover", height: "100vh", padding: "120px"}}>
+            <div className='card mx-auto' style={{ width: "450px", height: "400px"}}>
                 <p style={{ fontSize: "20px", textAlign: "center", marginTop: "40px", marginBottom: "50px" }}>Welcome! Log In</p>
                 <input type='text' placeholder='User Name' className=' input-field   mx-auto' onChange={(e) => setName(e.target.value)} />
                 {errors.userName && <div style={{ color: 'red', fontSize: '12px', textAlign: 'center' }}>{errors.userName}</div>}
-                <input type='text' placeholder='Password' className=' input-field mt-4  mx-auto' onChange={(e) => setPassword(e.target.value)} />
+                <input type='password' placeholder='Password' className=' input-field mt-4  mx-auto' onChange={(e) => setPassword(e.target.value)} />
                 {errors.password && <div style={{ color: 'red', fontSize: '12px', textAlign: 'center' }}>{errors.password}</div>}
                 <button className='bg-danger text-white mx-auto mt-5' style={{ border: "none", padding: "7px", width: "360px" }} onClick={handleSubmit} >Login</button>
             </div>

@@ -27,7 +27,7 @@ function Modal({ setVisible, visible }) {
       <p className='text-center pb-0'>please enter the OTP below</p>
       <div className=" text-center" >
         <label className='mx-2' >{success?.data.opaque}- </label>
-        <input type="text" style={{ width: '150px' }} value={value} onChange={(e) => setValue(e.target.value)} />
+        <input type="text" style={{ width: '100px', textAlign: "center"}} value={value} onChange={(e) => setValue(e.target.value)} />
       </div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <button type='text' className=' btn bg-danger text-white mt-3' onClick={handleSubmit} >Verify</button>

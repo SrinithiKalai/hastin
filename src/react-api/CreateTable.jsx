@@ -38,7 +38,7 @@ function CreateTable({ setTable }) {
   return (
     <div>
       <button className='btn bg-success text-white float-end' 
-        style={{ borderRadius: "3px", marginRight: "27px", marginTop: "20px" }} 
+        style={{ borderRadius: "3px", marginRight: "27px", marginTop: "10px" }} 
         onClick={handleNewVendor}>
         + New Vendor
       </button><br />
@@ -49,7 +49,7 @@ function CreateTable({ setTable }) {
         <FaSearch style={{ position: "absolute", top: "50%", right: "10px", transform: "translateY(-50%)", color: "gray" }} />
       </div>
 
-      <table className=" container vendor-table w-100 mx-auto text-center mt-3">
+      <table className="vendor-table w-100 text-center mt-3">
         <thead>
           <tr>
             <th>S.NO</th>
