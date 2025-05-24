@@ -82,17 +82,6 @@ export function createService(payload) {
   });
 }
 
-export function getIdService(id, data) {
-  const token = localStorage.getItem("jwt");
-  return axios({
-    method: "GET",
-    url: Hastin + "api/vendor/get/" + id,
-    headers: {
-      Authorization: `BslogiKey ${token}`
-    }
-  })
-}
-
 export function updateService(payload) {
   const token = localStorage.getItem("jwt");
   return axios({
@@ -104,3 +93,15 @@ export function updateService(payload) {
     }
   });
 }
+
+export function getIdService(id) {
+  const token = localStorage.getItem("jwt");
+  return axios({
+    method: "GET",
+    url: Hastin + "api/vendor/get/" + id,
+    headers: {
+      Authorization: `BslogiKey ${token}`
+    }
+  })
+}
+

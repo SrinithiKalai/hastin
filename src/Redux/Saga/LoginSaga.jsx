@@ -73,16 +73,6 @@ function* createSaga({ payload }) {
   }
 }
 
-function* getIdSaga({payload}) {
-  try{
-    const loginResponse = yield call(getIdService, payload);
-    yield put(getIdSuccess(loginResponse.data));
-  }
-  catch(err) {
-    yield put(getIdFailure(err))
-  }
-}
-
 function* updateSaga({ payload }) {
   try {
     const loginResponse = yield call(updateService, payload);
@@ -90,6 +80,16 @@ function* updateSaga({ payload }) {
   }
   catch (err) {
     yield put(updateFailure(err))
+  }
+}
+
+function* getIdSaga({payload}) {
+  try{
+    const loginResponse = yield call(getIdService, payload);
+    yield put(getIdSuccess(loginResponse.data));
+  }
+  catch(err) {
+    yield put(getIdFailure(err))
   }
 }
 
@@ -101,6 +101,6 @@ export default function* login() {
   yield takeLatest(TYPE.CURRENCIE_REQUEST, currencieSaga);
   yield takeLatest(TYPE.CITY_REQUEST, citySaga);
   yield takeLatest(TYPE.CREATE_REQUEST, createSaga);
+   yield takeLatest(TYPE.UPDATE_REQUEST, updateSaga);
   yield takeLatest(TYPE.GET_ID_REQUEST, getIdSaga);
-  yield takeLatest(TYPE.HASTINUPDATE_REQUEST, updateSaga);
 }

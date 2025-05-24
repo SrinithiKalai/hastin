@@ -1,4 +1,4 @@
-import { HASTINUPDATE_FAILURE, HASTINUPDATE_REQUEST, HASTINUPDATE_SUCCESS } from "../Types";
+import { UPDATE_FAILURE, UPDATE_REQUEST, UPDATE_SUCCESS } from "../Types";
 
 const initialState = {
     loading: false,
@@ -8,19 +8,19 @@ const initialState = {
 export const updateReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case HASTINUPDATE_REQUEST:
+        case UPDATE_REQUEST:
             return {
                 ...state,
                 loading: true,
                 error: null,
             };
-        case HASTINUPDATE_SUCCESS:
+        case UPDATE_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 createData: action.payload
             };
-        case HASTINUPDATE_FAILURE:
+        case UPDATE_FAILURE:
             return {
                 ...state,
                 loading: false,

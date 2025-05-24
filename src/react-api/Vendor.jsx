@@ -98,14 +98,14 @@ function Vendor() {
                                     <div className='card' style={{ width: "450px", height: "320px", boxShadow: "2px 2px 10px rgba(0,0,0,0.2)", marginLeft: "30px" }}>
                                         <input className='mx-auto mt-4' placeholder='Vendor Name' style={{ border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none" }} value={vendorData.vendorName} onChange={e => handleInputChange('vendorName', e.target.value)} />
                                         <input className='mx-auto mt-4' placeholder='Vendor Code' style={{ border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none" }} value={vendorData.vendorCode} onChange={e => handleInputChange('vendorCode', e.target.value)} />
-                                        <select className='mx-auto mt-4' style={{color: "#808080", border: "none", borderBottom: "2px solid #D3D3D3", width: "400px", fontSize: "14px", outline: "none", backgroundColor: "transparent" }} value={vendorData.vendorType} onChange={e => handleInputChange('vendorType', e.target.value)}>
+                                        <select className='mx-auto mt-4' style={{ color: "#808080", border: "none", borderBottom: "2px solid #D3D3D3", width: "400px", fontSize: "14px", outline: "none", backgroundColor: "transparent" }} value={vendorData.vendorType} onChange={e => handleInputChange('vendorType', e.target.value)}>
                                             <option value="">Choose Vendor Type</option>
                                             <option value="Individual">Individual</option>
                                             <option value="Company">Company</option>
                                         </select>
                                         <input className='mx-auto mt-4' placeholder='Tax Registration No' style={{ border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none" }} value={vendorData.taxRegNo} onChange={e => handleInputChange('taxRegNo', e.target.value)} />
                                         <input className='mx-auto mt-4' placeholder='Company Registration No' style={{ border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none" }} value={vendorData.companyRegNo} onChange={e => handleInputChange('companyRegNo', e.target.value)} />
-                                        <select className='mx-auto mt-4' style={{color: "#808080", border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none", backgroundColor: "transparent" }} value={vendorData.currency} onChange={e => handleInputChange('currency', e.target.value)}>
+                                        <select className='mx-auto mt-4' style={{ color: "#808080", border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none", backgroundColor: "transparent" }} value={vendorData.currency} onChange={e => handleInputChange('currency', e.target.value)}>
                                             <option value="">Choose Currency</option>
                                             {currency && [...new Set(currency.map(item => item.code))].map((base, index) => (
                                                 <option key={index} value={base}>{base}</option>
@@ -119,19 +119,21 @@ function Vendor() {
                                         <input className='mx-auto mt-4' placeholder='Address 1' style={{ border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none" }} value={vendorData.address1} onChange={e => handleInputChange('address1', e.target.value)} />
                                         <input className='mx-auto mt-4' placeholder='Address 2' style={{ border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none" }} value={vendorData.address2} onChange={e => handleInputChange('address2', e.target.value)} />
                                         <select
-                                            className='mx-auto mt-4' style={{color: "#808080", border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none", backgroundColor: "transparent" }} onChange={e => { handleInputChange('country', e.target.value); setSelectedCountry(e.target.value); }}>
+                                            className='mx-auto mt-4' style={{ color: "#808080", border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none", backgroundColor: "transparent" }} onChange={e => { handleInputChange('country', e.target.value); setSelectedCountry(e.target.value); }}>
                                             <option value="">Choose Country</option>
                                             {country &&
                                                 country.map((item, index) => (
                                                     <option key={index} value={item.id}>{item.name}</option>
                                                 ))}
                                         </select>
-                                        <select className='mx-auto mt-4' style={{color: "#808080", border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none", backgroundColor: "transparent" }} value={vendorData.city} onChange={e => handleInputChange('cityName', e.target.value)}>
+                                        <select className='mx-auto mt-4' style={{ color: "#808080", border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none", backgroundColor: "transparent" }} value={vendorData.cityId}
+                                            onChange={e => handleInputChange('cityId', e.target.value)}>
                                             <option value="">Choose City</option>
                                             {filteredCities && filteredCities.map((city, index) => (
-                                                <option key={index} value={city.cityName}>{city.cityName}</option>
+                                                <option key={index} value={city.id}>{city.cityName}</option>
                                             ))}
                                         </select>
+
                                         <input className='mx-auto mt-4' placeholder='Zip Code' style={{ border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none" }} value={vendorData.zipCode} onChange={e => handleInputChange('zipCode', e.target.value)} />
                                     </div>
                                 </div>
@@ -180,7 +182,7 @@ function Vendor() {
                                             <input value={contact.phone} onChange={e => handleContactChange(index, 'phone', e.target.value)} placeholder='Phone No' style={{ border: "none", outline: "none", borderBottom: "1px solid #D3D3D3", marginTop: "10px", width: "300px" }} />
                                         </td>
                                         <td>
-                                            <select onChange={e => handleContactChange(index, 'isDefault', e.target.value === 'true')} style={{color: "#808080", border: "none", outline: "none", borderBottom: "1px solid #D3D3D3", marginTop: "10px", width: "300px" }}>
+                                            <select onChange={e => handleContactChange(index, 'isDefault', e.target.value === 'true')} style={{ color: "#808080", border: "none", outline: "none", borderBottom: "1px solid #D3D3D3", marginTop: "10px", width: "300px" }}>
                                                 <option value="disabled">Is Default</option>
                                                 <option value="true">Yes</option>
                                                 <option value="false">No</option>
