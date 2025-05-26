@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './HastinLogin.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginRequest } from '../Redux/Action/LoginAction'
@@ -12,7 +12,7 @@ function HastinLogin() {
     const [errors, setErrors] = useState({});
     const [visible, setVisible] = useState(false);
     const dispatch = useDispatch();
-    const { data: response, loading, error } = useSelector((state) => state?.loginReducer);
+    const { data: response, loading, error } = useSelector((state) => state?.login);
     const validationSchema = Yup.object().shape({
         userName: Yup.string().required('Username is required'),
         password: Yup.string().required('Password is required')
@@ -51,9 +51,9 @@ function HastinLogin() {
         <div style={{backgroundImage: `url(${image1})`, backgroundSize: "cover", height: "100vh", padding: "120px"}}>
             <div className='card mx-auto' style={{ width: "450px", height: "400px"}}>
                 <p style={{ fontSize: "20px", textAlign: "center", marginTop: "40px", marginBottom: "50px" }}>Welcome! Log In</p>
-                <input type='text' placeholder='User Name' className=' input-field   mx-auto' onChange={(e) => setName(e.target.value)} />
+                <input type='text' value={userName} placeholder='User Name' className=' input-field   mx-auto' onChange={(e) => setName(e.target.value)} />
                 {errors.userName && <div style={{ color: 'red', fontSize: '12px', textAlign: 'center' }}>{errors.userName}</div>}
-                <input type='password' placeholder='Password' className=' input-field mt-4  mx-auto' onChange={(e) => setPassword(e.target.value)} />
+                <input type='password' value={password} placeholder='Password' className=' input-field mt-4  mx-auto' onChange={(e) => setPassword(e.target.value)} />
                 {errors.password && <div style={{ color: 'red', fontSize: '12px', textAlign: 'center' }}>{errors.password}</div>}
                 <button className='bg-danger text-white mx-auto mt-5' style={{ border: "none", padding: "7px", width: "360px" }} onClick={handleSubmit} >Login</button>
             </div>

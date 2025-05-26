@@ -3,10 +3,10 @@ import { FaSearch } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { FaEllipsisVertical } from "react-icons/fa6";
 import './CreateTable.css';
-import { countryRequest, currencieRequest, getIdRequest, tableRequest } from '../Redux/Action/LoginAction';
+import { countryRequest, currencyRequest, getIdRequest, tableRequest } from '../Redux/Action/LoginAction';
 
 function CreateTable({ setTable }) {
-  const tableData = useSelector(state => state.loginReducer?.error?.data?.tableData);
+  const tableData = useSelector(state => state.login?.error?.data?.tableData);
 
   const dispatch = useDispatch();
 
@@ -24,14 +24,14 @@ function CreateTable({ setTable }) {
 
   const handleNewVendor = () => {
     dispatch(countryRequest());
-    dispatch(currencieRequest());
+    dispatch(currencyRequest());
     setTable('vendorDetails'); 
   }
 
   const handleEdit = (id) => {
     dispatch(getIdRequest(id));      
     dispatch(countryRequest());         
-    dispatch(currencieRequest());        
+    dispatch(currencyRequest());        
     setTable('vendorDetails');         
   }
 

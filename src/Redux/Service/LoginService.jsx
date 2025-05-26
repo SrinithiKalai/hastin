@@ -47,7 +47,7 @@ export function countryService(payload) {
   });
 }
 
-export function currencieService(payload) {
+export function currencyService(payload) {
   const token = localStorage.getItem("jwt");
   return axios({
     method: "GET",

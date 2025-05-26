@@ -5,7 +5,7 @@ const initialState = {
     error: null,
     createData: null,
 };
-export const CreateReducer = (state = initialState, action) => {
+export const createReducer = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_REQUEST:
             return {

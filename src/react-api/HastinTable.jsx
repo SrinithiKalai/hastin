@@ -4,8 +4,8 @@ import CreateTable from './CreateTable'
 import Vendor from './Vendor';
 
 function HastinTable() {
-    var [name, setName] = useState('home');
-    var [table, setTable] = useState('');
+    const [name, setName] = useState('home');
+    const [table, setTable] = useState('');
 
     return (
         <div>
@@ -66,7 +66,7 @@ function Navbar({ setTable }) {
     return (
         <div>
             <nav className='navbar navbar-expand-sm' style={{ fontSize: '15px' }}>
-                <div className='containar-fluid'>
+                <div className='container-fluid'>
                     <ul className='navbar-nav d-flex align-items-center'>
                         <li className='nav-item'>
                             <a className='nav-link ' style={{ color: "#011c69", marginRight: "20px", fontWeight: "500" }} href='#'>AGENTS</a>

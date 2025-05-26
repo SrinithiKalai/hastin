@@ -32,9 +32,9 @@ function Vendor() {
         { name: '', email: '', phone: '', isDefault: false }
     ]);
 
-    const currency = useSelector(state => state.currencyReducer?.currencyData?.data);
-    const country = useSelector(state => state.CountryReducer?.countryData?.data);
-    const cities = useSelector(state => state.CityReducer?.cityData?.data);
+    const currency = useSelector(state => state.currency?.currencyData?.data);
+    const country = useSelector(state => state.country?.countryData?.data);
+    const cities = useSelector(state => state.city?.cityData?.data);
 
     const dispatch = useDispatch();
 

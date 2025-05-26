@@ -31,7 +31,7 @@ export const apiSuccess = (data) => {
         payload: data
     }
 }
-export const apiinFailure = (error) => {
+export const apiFailure = (error) => {
     return {
         type: Type.API_FAILURE,
         payload: error
@@ -76,21 +76,21 @@ export const countryFailure = (error) => {
     }
 }
 
-export const currencieRequest = (data) => {
+export const currencyRequest = (data) => {
     return {
-        type: Type.CURRENCIE_REQUEST,
+        type: Type.CURRENCY_REQUEST,
         payload: data
     }
 }
-export const currencieSuccess = (data) => {
+export const currencySuccess = (data) => {
     return {
-        type: Type.CURRENCIE_SUCCESS,
+        type: Type.CURRENCY_SUCCESS,
         payload: data
     }
 }
-export const currencieFailure = (error) => {
+export const currencyFailure = (error) => {
     return {
-        type: Type.CURRENCIE_FAILURE,
+        type: Type.CURRENCY_FAILURE,
         payload: error
     }
 }

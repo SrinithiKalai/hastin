@@ -5,7 +5,7 @@ const initialState = {
     error: null,
     countryData: null,
 };
-export const CountryReducer = (state = initialState, action) => {
+export const countryReducer = (state = initialState, action) => {
     switch (action.type) {
         case COUNTRY_REQUEST:
             return {

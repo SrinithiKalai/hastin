@@ -18,7 +18,7 @@ export const updateReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                createData: action.payload
+                updateData: action.payload
             };
         case UPDATE_FAILURE:
             return {

@@ -5,7 +5,7 @@ const initialState = {
     error: null,
     cityData: null,
 };
-export const CityReducer = (state = initialState, action) => {
+export const cityReducer = (state = initialState, action) => {
     switch (action.type) {
         case CITY_REQUEST:
             return {
