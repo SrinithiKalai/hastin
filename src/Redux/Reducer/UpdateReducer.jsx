@@ -3,7 +3,8 @@ import { UPDATE_FAILURE, UPDATE_REQUEST, UPDATE_SUCCESS } from "../Types";
 const initialState = {
     loading: false,
     error: null,
-    updateData: null,
+    data: [],
+    editObj: null,
 };
 export const updateReducer = (state = initialState, action) => {
 
@@ -18,7 +19,8 @@ export const updateReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                updateData: action.payload
+                data: state.data.map((item) => item.id === action.payload.id ? action.payload : item),
+                editObj: null
             };
         case UPDATE_FAILURE:
             return {

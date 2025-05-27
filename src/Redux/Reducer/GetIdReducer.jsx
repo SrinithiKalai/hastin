@@ -3,7 +3,7 @@ import { GET_ID_FAILURE, GET_ID_REQUEST, GET_ID_SUCCESS } from "../Types";
 const initialState = {
     loading: false,
     error: null,
-    editData: null,
+    editObj: null,
 };
 export const getIdReducer = (state = initialState, action) => {
 
@@ -18,7 +18,7 @@ export const getIdReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                editData: action.payload
+                editObj: action.payload
             };
         case GET_ID_FAILURE:
             return {
