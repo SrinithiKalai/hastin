@@ -133,25 +133,6 @@ export const createFailure = (error) => {
     }
 }
 
-export const updateRequest = (data) => {
-    return {
-        type: Type.UPDATE_REQUEST,
-        payload: data
-    }
-}
-export const updateSuccess = (data) => {
-    return {
-        type: Type.UPDATE_SUCCESS,
-        payload: data
-    }
-}
-export const updateFailure = (error) => {
-    return {
-        type: Type.UPDATE_FAILURE,
-        payload: error
-    }
-}
-
 export const getIdRequest = (id) => {
     return {
         type: Type.GET_ID_REQUEST,
@@ -167,6 +148,25 @@ export const getIdSuccess = (data) => {
 export const getIdFailure = (error) => {
     return {
         type: Type.GET_ID_FAILURE,
+        payload: error
+    }
+}
+
+export const updateRequest = (data) => {
+    return {
+        type: Type.UPDATE_REQUEST,
+        payload: data
+    }
+}
+export const updateSuccess = (data) => {
+    return {
+        type: Type.UPDATE_SUCCESS,
+        payload: data
+    }
+}
+export const updateFailure = (error) => {
+    return {
+        type: Type.UPDATE_FAILURE,
         payload: error
     }
 }
