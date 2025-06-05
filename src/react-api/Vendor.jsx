@@ -15,7 +15,7 @@ function Vendor() {
         companyRegNo: null,
         currency: null,
         address1: null,
-        address2: null, 
+        address2: null,
         country: null,
         cityId: null,
         zipCode: null,
