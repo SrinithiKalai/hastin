@@ -8,26 +8,27 @@ function Vendor() {
     const [selectedCountry, setSelectedCountry] = useState('');
     const [filteredCities, setFilteredCities] = useState([]);
     const [vendorData, setVendorData] = useState({
-        vendorName: null,
-        vendorCode: null,
-        vendorType: null,
-        taxRegNo: null,
-        companyRegNo: null,
-        currency: null,
-        address1: null,
-        address2: null,
-        country: null,
-        cityId: null,
-        zipCode: null,
-        bankAccountName: null,
-        bankAccountNo: null,
-        bankName: null,
-        branch: null,
-        swiftCode: null,
-        createdBy: null,
-        documentList: null,
-        postalCode: 0,
-    });
+  vendorName: '',
+  vendorCode: '',
+  vendorType: '',
+  taxRegNo: '',
+  companyRegNo: '',
+  currency: '',
+  address1: '',
+  address2: '',
+  country: '',
+  cityId: '',
+  zipCode: '',
+  bankAccountName: '',
+  bankAccountNo: '',
+  bankName: '',
+  branch: '',
+  swiftCode: '',
+  createdBy: '',
+  documentList: '',
+  postalCode: 0,
+});
+
     const [contactList, setContactList] = useState([
         { name: '', email: '', phone: '', isDefault: false }
     ]);
@@ -88,7 +89,7 @@ function Vendor() {
             <p style={{ color: '#011c69', marginTop: "20px", marginLeft: "20px" }}>VENDOR</p>
             <button className='btn ' style={{ backgroundColor: "#011c69", color: 'white', borderRadius: "3px", marginLeft: "50px", fontSize: "13px", fontWeight: "700" }}>VENDOR DETAILS</button>
             <div className="container-fluid" >
-                <div className="bg-light p-3 fw-bold mt-4" style={{ fontSize: "15px", color: "#011c69", coursor: "pointer" }} onClick={() => setOpen(open === "basic" ? "" : "basic")}>BASIC INFORMATION</div>
+                <div className="bg-light p-3 fw-bold mt-4" style={{ fontSize: "15px", color: "#011c69", cursor: "pointer" }} onClick={() => setOpen(open === "basic" ? "" : "basic")}>BASIC INFORMATION</div>
                 {open === "basic" && (
                     <div className="p-3 border">
                         <div className="mb-3">
@@ -182,8 +183,8 @@ function Vendor() {
                                             <input value={contact.phone} onChange={e => handleContactChange(index, 'phone', e.target.value)} placeholder='Phone No' style={{ border: "none", outline: "none", borderBottom: "1px solid #D3D3D3", marginTop: "10px", width: "300px" }} />
                                         </td>
                                         <td>
-                                            <select onChange={e => handleContactChange(index, 'isDefault', e.target.value === 'true')} style={{ color: "#808080", border: "none", outline: "none", borderBottom: "1px solid #D3D3D3", marginTop: "10px", width: "300px" }}>
-                                                <option value="disabled">Is Default</option>
+                                            <select value={contact.isDefault.toString()} onChange={e => handleContactChange(index, 'isDefault', e.target.value === 'true')} style={{ color: "#808080", border: "none", outline: "none", borderBottom: "1px solid #D3D3D3", marginTop: "10px", width: "300px" }}>
+                                                <option value="" disabled hidden>Is Default</option>
                                                 <option value="true">Yes</option>
                                                 <option value="false">No</option>
                                             </select>

@@ -3,11 +3,11 @@ import { UPDATE_FAILURE, UPDATE_REQUEST, UPDATE_SUCCESS } from "../Types";
 const initialState = {
     loading: false,
     error: null,
-    data: [],
+    data: [],           // Is this list populated somewhere else?
     editObj: null,
 };
-export const updateReducer = (state = initialState, action) => {
 
+export const updateReducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_REQUEST:
             return {
@@ -19,8 +19,11 @@ export const updateReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                data: state.data.map((item) => item.id === action.payload.id ? action.payload : item),
-                editObj: null
+                // Update the item in data array by matching id
+                data: state.data.map((item) =>
+                    item.id === action.payload.id ? action.payload : item
+                ),
+                editObj: null,
             };
         case UPDATE_FAILURE:
             return {
@@ -31,5 +34,4 @@ export const updateReducer = (state = initialState, action) => {
         default:
             return state;
     }
-
-}
+};
