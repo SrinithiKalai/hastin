@@ -9,7 +9,6 @@ function CreateTable({ setTable }) {
   const tableData = useSelector(state => state.login?.error?.data?.tableData);
 
   const dispatch = useDispatch();
-
   useEffect(() => {
     const payload = {
       pagination: {
@@ -37,15 +36,9 @@ function CreateTable({ setTable }) {
 
   return (
     <div>
-      <button className='btn bg-success text-white float-end' 
-        style={{ borderRadius: "3px", marginRight: "27px", marginTop: "10px" }} 
-        onClick={handleNewVendor}>
-        + New Vendor
-      </button><br />
-      
+      <button className='btn bg-success text-white float-end' style={{ borderRadius: "3px", marginRight: "27px", marginTop: "10px" }} onClick={handleNewVendor}>+ New Vendor</button><br />
       <div style={{ position: "relative", width: "300px", marginTop: "50px", marginBottom: "10px", marginLeft: "79%" }}>
-        <input placeholder='Search' 
-          style={{ width: "100%", padding: "10px 35px 10px 10px", borderRadius: "5px", border: "1px solid #ccc", outline: "none", fontSize: "14px" }} />
+        <input placeholder='Search' style={{ width: "100%", padding: "10px 35px 10px 10px", borderRadius: "5px", border: "1px solid #ccc", outline: "none", fontSize: "14px" }} />
         <FaSearch style={{ position: "absolute", top: "50%", right: "10px", transform: "translateY(-50%)", color: "gray" }} />
       </div>
 
@@ -66,12 +59,7 @@ function CreateTable({ setTable }) {
           {tableData?.map((item, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td 
-                className="text-primary" 
-                style={{ cursor: "pointer" }} 
-                onClick={() => handleEdit(item.id)}>
-                {item.vendorName}
-              </td>
+              <td className="text-primary" style={{ cursor: "pointer" }} onClick={() => handleEdit(item.id)}>{item.vendorName}</td>
               <td>{item.vendorCode}</td>
               <td>{item.vendorType}</td>
               <td>{item.address}</td>
