@@ -19,18 +19,18 @@ function Vendor() {
     country: '',
     cityId: '',
     zipCode: '',
-    bankAccountName: '',
-    bankAccountNo: '',
+    bankAcctName: '',
+    bankAccountNum: '',
     bankName: '',
-    branch: '',
-    swiftCode: '',
+    bankBranchName: '',
+    bankSwiftCode: '',
     createdBy: '',
     documentList: '',
     postalCode: 0,
   });
 
   const [contactList, setContactList] = useState([
-    { name: '', email: '', phone: '', isDefault: false }
+    { name: '', email: '', mobileNo: '', isDefault: false }
   ]);
 
   const currency = useSelector(state => state.currency?.currencyData?.data);
@@ -64,7 +64,7 @@ function Vendor() {
     });
   };
   const addContactRow = () => {
-    setContactList(prev => [...prev, { name: "", email: "", phone: "", isDefault: false }]);
+    setContactList(prev => [...prev, { name: "", email: "", mobileNo: "", isDefault: false }]);
   };
 
   const deleteContactRow = (index) => {
@@ -139,11 +139,11 @@ function Vendor() {
                 <div>
                   <label For="vendorName" className="form-label" style={{ marginLeft: '30px' }}>BANK DETAILS</label>
                   <div className='card' style={{ width: "450px", height: "320px", boxShadow: "2px 2px 10px rgba(0,0,0,0.2)", marginLeft: "20px" }}>
-                    <input className='mx-auto mt-4' placeholder='Bank Account Name' style={{ border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none" }} value={vendorData.bankAccountName} onChange={e => handleInputChange('bankAccountName', e.target.value)} />
-                    <input className='mx-auto mt-4' placeholder='Bank Account No' style={{ border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none" }} value={vendorData.bankAccountNo} onChange={e => handleInputChange('bankAccountNo', e.target.value)} />
+                    <input className='mx-auto mt-4' placeholder='Bank Account Name' style={{ border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none" }} value={vendorData.bankAcctName} onChange={e => handleInputChange('bankAccountName', e.target.value)} />
+                    <input className='mx-auto mt-4' placeholder='Bank Account No' style={{ border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none" }} value={vendorData.bankAccountNum} onChange={e => handleInputChange('bankAccountNo', e.target.value)} />
                     <input className='mx-auto mt-4' placeholder='Bank Name' style={{ border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none" }} value={vendorData.bankName} onChange={e => handleInputChange('bankName', e.target.value)} />
-                    <input className='mx-auto mt-4' placeholder='Branch' style={{ border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none" }} value={vendorData.branch} onChange={e => handleInputChange('branch', e.target.value)} />
-                    <input className='mx-auto mt-4' placeholder='Swift Code' style={{ border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none" }} value={vendorData.swiftCode} onChange={e => handleInputChange('swiftCode', e.target.value)} />
+                    <input className='mx-auto mt-4' placeholder='Branch' style={{ border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none" }} value={vendorData.bankBranchName} onChange={e => handleInputChange('branch', e.target.value)} />
+                    <input className='mx-auto mt-4' placeholder='Swift Code' style={{ border: "none", borderBottom: "2px solid  #D3D3D3", width: "400px", fontSize: "14px", outline: "none" }} value={vendorData.bankSwiftCode} onChange={e => handleInputChange('swiftCode', e.target.value)} />
                   </div>
                 </div>
               </div>
@@ -178,7 +178,7 @@ function Vendor() {
                       <input value={contact.email} onChange={e => handleContactChange(index, 'email', e.target.value)} placeholder='Email' style={{ border: "none", outline: "none", borderBottom: "1px solid #D3D3D3", marginTop: "10px", width: "300px" }} />
                     </td>
                     <td>
-                      <input value={contact.phone} onChange={e => handleContactChange(index, 'phone', e.target.value)} placeholder='Phone No' style={{ border: "none", outline: "none", borderBottom: "1px solid #D3D3D3", marginTop: "10px", width: "300px" }} />
+                      <input value={contact.mobileNo} onChange={e => handleContactChange(index, 'phone', e.target.value)} placeholder='Phone No' style={{ border: "none", outline: "none", borderBottom: "1px solid #D3D3D3", marginTop: "10px", width: "300px" }} />
                     </td>
                     <td>
                       <select value={contact.isDefault.toString()} onChange={e => handleContactChange(index, 'isDefault', e.target.value === 'true')} style={{ color: "#808080", border: "none", outline: "none", borderBottom: "1px solid #D3D3D3", marginTop: "10px", width: "300px" }}>

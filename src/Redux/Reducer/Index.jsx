@@ -4,16 +4,14 @@ import { currencyReducer } from './CurrencyReducer';
 import { countryReducer } from './CountryReducer';
 import { cityReducer } from './CityReducer';
 import { createReducer } from './CreateReducer';
-import { updateReducer } from './UpdateReducer';
-import { getIdReducer } from './GetIdReducer';
+import { userReducer } from './GetIdReducer';
 const rootReducer = combineReducers({
     login : loginReducer,
     currency : currencyReducer,
     country : countryReducer,
     city : cityReducer,
     create : createReducer,
-    getId : getIdReducer,
-    update : updateReducer
+    user : userReducer
 })
 
 export default rootReducer;
