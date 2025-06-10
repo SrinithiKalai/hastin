@@ -85,7 +85,8 @@ function* getIdSaga({payload}) {
 
 function* updateSaga({ payload }) {
   try {
-    const response = yield call(updateService, payload);
+    const { id, data } = payload;
+    const response = yield call(updateService, id, data);
     yield put(updateSuccess(response.data));
   }
   catch (err) {

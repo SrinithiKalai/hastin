@@ -152,10 +152,10 @@ export const getIdFailure = (error) => {
     }
 }
 
-export const updateRequest = (data) => {
+export const updateRequest = (payload) => {
     return {
         type: Type.UPDATE_REQUEST,
-        payload: data
+        payload,
     }
 }
 export const updateSuccess = (data) => {

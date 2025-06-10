@@ -28,7 +28,7 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        data: state.data.map(item => item.id === action.payload.id ? action.payload : item),
+        data: state.data.map((item) => item.id === action.payload.id ? action.payload : item),
         editObj: null,
       };
 
