@@ -1,9 +1,9 @@
 import * as Type from "../Types";
 
-export const loginRequest = (data) => {
+export const loginRequest = (payload) => {
     return {
         type: Type.LOGIN_REQUEST,
-        payload: data
+        payload,
     }
 }
 export const loginSuccess = (data) => {
@@ -19,10 +19,10 @@ export const loginFailure = (error) => {
     }
 }
 
-export const apiRequest = (data) => {
+export const apiRequest = (payload) => {
     return {
         type: Type.API_REQUEST,
-        payload: data
+        payload,
     }
 }
 export const apiSuccess = (data) => {
@@ -38,10 +38,10 @@ export const apiFailure = (error) => {
     }
 }
 
-export const tableRequest = (data) => {
+export const tableRequest = (payload) => {
     return {
         type: Type.TABLE_REQUEST,
-        payload: data
+        payload,
     }
 }
 export const tableSuccess = (data) => {
@@ -57,62 +57,61 @@ export const tableFailure = (error) => {
     }
 }
 
-export const countryRequest = (data) => {
+export const currencyRequest = () => {
+    return {
+        type: Type.CURRENCY_REQUEST,
+    }
+};
+
+export const currencySuccess = (data) => {
+    return {
+        type: Type.CURRENCY_SUCCESS,
+        payload: data,
+    }
+};
+
+export const currencyFailure = (error) => {
+    return {
+        type: Type.CURRENCY_FAILURE,
+        payload: error,
+    }
+};
+
+export const countryRequest = () => {
     return {
         type: Type.COUNTRY_REQUEST,
-        payload: data
     }
-}
+};
 export const countrySuccess = (data) => {
     return {
         type: Type.COUNTRY_SUCCESS,
         payload: data
     }
-}
+};
 export const countryFailure = (error) => {
     return {
         type: Type.COUNTRY_FAILURE,
         payload: error
     }
-}
+};
 
-export const currencyRequest = (data) => {
-    return {
-        type: Type.CURRENCY_REQUEST,
-        payload: data
-    }
-}
-export const currencySuccess = (data) => {
-    return {
-        type: Type.CURRENCY_SUCCESS,
-        payload: data
-    }
-}
-export const currencyFailure = (error) => {
-    return {
-        type: Type.CURRENCY_FAILURE,
-        payload: error
-    }
-}
-
-export const cityRequest = (payload) => {
+export const cityRequest = () => {
     return {
         type: Type.CITY_REQUEST,
-        payload,
     }
-}
+};
 export const citySuccess = (data) => {
     return {
         type: Type.CITY_SUCCESS,
         payload: data
     }
-}
+};
 export const cityFailure = (error) => {
     return {
         type: Type.CITY_FAILURE,
         payload: error
     }
-}
+};
 
 export const createRequest = (payload) => {
     return {

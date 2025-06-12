@@ -12,7 +12,6 @@ export function loginService(payload) {
 export function apiService(payload) {
   const token = payload.jwt;
   localStorage.setItem("jwt", token);
-  console.log("token", token);
   return axios({
     method: "POST",
     url: Hastin + "app/auth/access-code/validate",
@@ -35,24 +34,22 @@ export function tableService(payload) {
   });
 }
 
-export function countryService(payload) {
+export function currencyService() {
+    const token = localStorage.getItem("jwt");
+    return axios({
+        method: "GET",
+        url: Hastin + "api/meta/currencies",
+        headers: {
+            Authorization: `BslogiKey ${token}`,
+        },
+    });
+}
+
+export function countryService() {
   const token = localStorage.getItem("jwt");
   return axios({
     method: "GET",
     url: Hastin + "api/meta/country",
-    params: payload,
-    headers: {
-      Authorization: `BslogiKey ${token}`
-    }
-  });
-}
-
-export function currencyService(payload) {
-  const token = localStorage.getItem("jwt");
-  return axios({
-    method: "GET",
-    url: Hastin + "api/meta/currencies",
-    params: payload,
     headers: {
       Authorization: `BslogiKey ${token}`
     }
@@ -63,12 +60,13 @@ export function cityService() {
   const token = localStorage.getItem("jwt");
   return axios({
     method: "GET",
-    url: Hastin + "api/countryCities/get",
+     url: Hastin + "api/countryCities/get",
     headers: {
-      Authorization: `BslogiKey ${token}`
-    }
+      Authorization: `BslogiKey ${token}`,
+    },
   });
 }
+
 
 export function createService(payload) {
   const token = localStorage.getItem("jwt");

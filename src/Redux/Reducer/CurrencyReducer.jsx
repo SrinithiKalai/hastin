@@ -3,7 +3,7 @@ import { CURRENCY_REQUEST, CURRENCY_FAILURE, CURRENCY_SUCCESS } from "../Types";
 const initialState = {
     loading: false,
     error: null,
-    currencyData: null,
+    currencyData: [],
 };
 export const currencyReducer = (state = initialState, action) => {
 

@@ -33,33 +33,31 @@ function* tableSaga({ payload }) {
   }
 }
 
-function* countrySaga({ payload }) {
+function* currencySaga() {
+    try {
+        const response = yield call(currencyService);
+        yield put(currencySuccess(response.data));
+    } catch (error) {
+        yield put(currencyFailure(error));
+    }
+}
+
+function* countrySaga() {
   try {
-    const response = yield call(countryService, payload);
+    const response = yield call(countryService);
     yield put(countrySuccess(response.data));
-  }
-  catch (err) {
-    yield put(countryFailure(err))
-  }
-}
-
-function* currencySaga({ payload }) {
-  try {
-    const response = yield call(currencyService, payload);
-    yield put(currencySuccess(response.data));
-  }
-  catch (err) {
-    yield put(currencyFailure(err))
+  } catch (error) {
+    yield put(countryFailure(error));
   }
 }
 
-function* citySaga({ payload }) {
+function* citySaga() {
   try {
-    const response = yield call(cityService, payload);
+    const response = yield call(cityService);
     yield put(citySuccess(response.data));
-  }
-  catch (err) {
-    yield put(cityFailure(err))
+  } catch (error) {
+    console.error("City Fetch Error:", error);
+    yield put(cityFailure(error));
   }
 }
 

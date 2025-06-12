@@ -3,7 +3,7 @@ import { COUNTRY_REQUEST, COUNTRY_SUCCESS, COUNTRY_FAILURE } from "../Types";
 const initialState = {
     loading: false,
     error: null,
-    countryData: null,
+    countryData: [],
 };
 export const countryReducer = (state = initialState, action) => {
     switch (action.type) {
