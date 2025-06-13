@@ -7,16 +7,28 @@ import {
   cityRequest,
   currencyRequest,
 } from "../Redux/Action/LoginAction";
+import "./FormUpdate.css"; 
 
 const UpdateForm = ({ formData, setFormdata, setIsUpdated }) => {
   const dispatch = useDispatch();
 
-  const countryList = useSelector((state) => state.country.countryData?.data || []);
-  const cityList = useSelector((state) => state.city.cityData?.data || []);
-  const currencyList = useSelector((state) => state.currency.currencyData?.data || []);
+  const countryList = useSelector(
+    (state) => state.country.countryData?.data || []
+  );
+  const cityList = useSelector(
+    (state) => state.city.cityData?.data || []
+  );
+  const currencyList = useSelector(
+    (state) => state.currency.currencyData?.data || []
+  );
 
   const filteredCountries = countryList.filter(
-    (c) => c.name && c.name.trim() !== "" && c.name !== "N/A" && c.name !== "." && c.id
+    (c) =>
+      c.name &&
+      c.name.trim() !== "" &&
+      c.name !== "N/A" &&
+      c.name !== "." &&
+      c.id
   );
 
   const filteredCities = cityList.filter(
@@ -46,26 +58,33 @@ const UpdateForm = ({ formData, setFormdata, setIsUpdated }) => {
   };
 
   return (
-    <div className="p-4">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <Card title="BASIC DETAILS" className="shadow-md rounded-xl">
-          <div className="flex flex-col gap-3">
+    <div className="update-form-container">
+      <div className="update-form-grid">
+        {/* BASIC DETAILS */}
+        <Card title="BASIC DETAILS" className="update-card">
+          <div className="update-form-group">
             <InputText
               name="vendorName"
               placeholder="Vendor Name"
               value={formData.vendorName || ""}
-              onChange={(e) => handleChangeInput(e.target.name, e.target.value)}
+              onChange={(e) =>
+                handleChangeInput(e.target.name, e.target.value)
+              }
             />
             <InputText
               name="vendorCode"
               placeholder="Vendor Code"
               value={formData.vendorCode || ""}
-              onChange={(e) => handleChangeInput(e.target.name, e.target.value)}
+              onChange={(e) =>
+                handleChangeInput(e.target.name, e.target.value)
+              }
             />
             <select
               name="vendorType"
               value={formData.vendorType || ""}
-              onChange={(e) => handleChangeInput(e.target.name, e.target.value)}
+              onChange={(e) =>
+                handleChangeInput(e.target.name, e.target.value)
+              }
               className="p-inputtext p-component"
             >
               <option value="">Choose Vendor Type</option>
@@ -76,12 +95,16 @@ const UpdateForm = ({ formData, setFormdata, setIsUpdated }) => {
               name="companyRegNo"
               placeholder="Company Registration No"
               value={formData.companyRegNo || ""}
-              onChange={(e) => handleChangeInput(e.target.name, e.target.value)}
+              onChange={(e) =>
+                handleChangeInput(e.target.name, e.target.value)
+              }
             />
             <select
               name="currencies"
               value={formData.currencies || ""}
-              onChange={(e) => handleChangeInput(e.target.name, e.target.value)}
+              onChange={(e) =>
+                handleChangeInput(e.target.name, e.target.value)
+              }
               className="p-inputtext p-component"
             >
               <option value="">Choose Currency</option>
@@ -94,19 +117,24 @@ const UpdateForm = ({ formData, setFormdata, setIsUpdated }) => {
           </div>
         </Card>
 
-        <Card title="ADDRESS DETAILS" className="shadow-md rounded-xl">
-          <div className="flex flex-col gap-3">
+        {/* ADDRESS DETAILS */}
+        <Card title="ADDRESS DETAILS" className="update-card">
+          <div className="update-form-group">
             <InputText
               name="address1"
               placeholder="Address 1"
               value={formData.address1 || ""}
-              onChange={(e) => handleChangeInput(e.target.name, e.target.value)}
+              onChange={(e) =>
+                handleChangeInput(e.target.name, e.target.value)
+              }
             />
             <InputText
               name="address2"
               placeholder="Address 2"
               value={formData.address2 || ""}
-              onChange={(e) => handleChangeInput(e.target.name, e.target.value)}
+              onChange={(e) =>
+                handleChangeInput(e.target.name, e.target.value)
+              }
             />
             <select
               name="countryId"
@@ -124,7 +152,9 @@ const UpdateForm = ({ formData, setFormdata, setIsUpdated }) => {
             <select
               name="cityId"
               value={formData.cityId || ""}
-              onChange={(e) => handleChangeInput(e.target.name, e.target.value)}
+              onChange={(e) =>
+                handleChangeInput(e.target.name, e.target.value)
+              }
               disabled={!formData.countryId}
               className="p-inputtext p-component"
             >
@@ -143,42 +173,55 @@ const UpdateForm = ({ formData, setFormdata, setIsUpdated }) => {
               name="postalCode"
               placeholder="Zip Code"
               value={formData.postalCode || ""}
-              onChange={(e) => handleChangeInput(e.target.name, e.target.value)}
+              onChange={(e) =>
+                handleChangeInput(e.target.name, e.target.value)
+              }
             />
           </div>
         </Card>
 
-        <Card title="BANK DETAILS" className="shadow-md rounded-xl">
-          <div className="flex flex-col gap-3">
+        {/* BANK DETAILS */}
+        <Card title="BANK DETAILS" className="update-card">
+          <div className="update-form-group">
             <InputText
               name="bankAcctName"
               placeholder="Bank Account Name"
               value={formData.bankAcctName || ""}
-              onChange={(e) => handleChangeInput(e.target.name, e.target.value)}
+              onChange={(e) =>
+                handleChangeInput(e.target.name, e.target.value)
+              }
             />
             <InputText
               name="bankAccountNum"
               placeholder="Bank Account No"
               value={formData.bankAccountNum || ""}
-              onChange={(e) => handleChangeInput(e.target.name, e.target.value)}
+              onChange={(e) =>
+                handleChangeInput(e.target.name, e.target.value)
+              }
             />
             <InputText
               name="bankName"
               placeholder="Bank Name"
               value={formData.bankName || ""}
-              onChange={(e) => handleChangeInput(e.target.name, e.target.value)}
+              onChange={(e) =>
+                handleChangeInput(e.target.name, e.target.value)
+              }
             />
             <InputText
               name="bankBranchName"
               placeholder="Branch"
               value={formData.bankBranchName || ""}
-              onChange={(e) => handleChangeInput(e.target.name, e.target.value)}
+              onChange={(e) =>
+                handleChangeInput(e.target.name, e.target.value)
+              }
             />
             <InputText
               name="bankSwiftCode"
               placeholder="Swift Code"
               value={formData.bankSwiftCode || ""}
-              onChange={(e) => handleChangeInput(e.target.name, e.target.value)}
+              onChange={(e) =>
+                handleChangeInput(e.target.name, e.target.value)
+              }
             />
           </div>
         </Card>
@@ -188,4 +231,3 @@ const UpdateForm = ({ formData, setFormdata, setIsUpdated }) => {
 };
 
 export default UpdateForm;
-

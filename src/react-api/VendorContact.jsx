@@ -28,12 +28,7 @@ function VendorContact({ formData, setFormdata }) {
 
   return (
     <div className="container-fluid">
-      <div
-        className="bg-light p-3 fw-bold mt-4"
-        style={{ fontSize: "15px", color: "#011c69", cursor: "pointer" }}
-      >
-        CONTACT
-      </div>
+     
 
       <div className="p-3 border">
         <table className="table table-bordered text-center">

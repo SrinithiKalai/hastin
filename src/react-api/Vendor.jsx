@@ -8,6 +8,7 @@ import {
   getIdRequest,
   cityRequest,
 } from "../Redux/Action/LoginAction";
+import "./FormUpdate.css";
 
 const Vendor = () => {
   const dispatch = useDispatch();
@@ -114,7 +115,7 @@ const Vendor = () => {
 
   return (
     <div>
-      <div className="vertical-menu-container">
+      <div className="vertical-menu-container" style={{paddingLeft: "20px" }}>
         {menuItems.map((item, index) => (
           <div key={index} className="mb-4">
             <button
@@ -129,10 +130,10 @@ const Vendor = () => {
           </div>
         ))}
       </div>
-      <div className="save-button-container">
+      <div className="save-button-container" style={{paddingRight: "20px", paddingBottom: "50px"}}>
         <button
           type="submit"
-          className="save-btn"
+          className="save-btn float-end"
           onClick={handleSave}
           disabled={!isUpdated}
         >
