@@ -24,14 +24,14 @@ function CreateTable({ setTable }) {
   const handleNewVendor = () => {
     dispatch(countryRequest());
     dispatch(currencyRequest());
-    setTable('vendorDetails'); 
+    setTable('vendorDetails');
   }
 
   const handleEdit = (id) => {
-    dispatch(getIdRequest(id));      
-    dispatch(countryRequest());         
-    dispatch(currencyRequest());        
-    setTable('vendorDetails');         
+    dispatch(getIdRequest(id));
+    dispatch(countryRequest());
+    dispatch(currencyRequest());
+    setTable('vendorDetails');
   }
 
   return (
@@ -59,7 +59,12 @@ function CreateTable({ setTable }) {
           {tableData?.map((item, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td className="text-primary" style={{ cursor: "pointer" }} onClick={() => handleEdit(item.id)}>{item.vendorName}</td>
+              <td>
+                <span className="vendor-link" onClick={() => handleEdit(item.id)}>
+                  {item.vendorName}
+                </span>
+              </td>
+
               <td>{item.vendorCode}</td>
               <td>{item.vendorType}</td>
               <td>{item.address}</td>

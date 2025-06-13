@@ -24,8 +24,7 @@
   gap: 12px;
 }
 
-.p-inputtext,
-select {
+.p-inputtext,select {
   border: none;
   border-bottom: 1px solid #000;
   border-radius: 0;
@@ -36,8 +35,7 @@ select {
   padding: 6px 8px;
 }
 
-.p-inputtext:focus,
-select:focus {
+.p-inputtext:focus,select:focus {
   border-bottom: 2px solid #1e88e5;
   outline: none;
 }
@@ -52,6 +50,7 @@ select {
   background-size: 8px 10px;
   padding-right: 24px;
 }
+
 .update-card {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
@@ -72,20 +71,20 @@ select {
 }
 
 .menu-item {
-  background-color: #003366; 
-  color: #ffffff;         
+  background-color: #003366;
+  color: #ffffff;
   border: none;
   padding: 10px;
   font-size: 14px;
   cursor: pointer;
-  border-radius: 6px ; 
+  border-radius: 6px;
   text-align: left;
   width: 170px;
 }
 
 .save-btn {
-  background-color: #25ca4b; 
-  color: white;             
+  background-color: #25ca4b;
+  color: white;
   border: none;
   padding: 10px 20px;
   font-size: 14px;

@@ -2,17 +2,14 @@ import React, { useEffect, useState } from "react";
 import UpdateForm from "./UpdateForm";
 import VendorContact from "./VendorContact";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  createRequest,
-  updateRequest,
-  getIdRequest,
-  cityRequest,
-} from "../Redux/Action/LoginAction";
+import { createRequest, updateRequest, getIdRequest, cityRequest, currencyRequest } from "../Redux/Action/LoginAction";
 import "./FormUpdate.css";
 
 const Vendor = () => {
   const dispatch = useDispatch();
   const fetch = useSelector((state) => state.user.editObj);
+  const currencyList = useSelector((state) => state.currency.currencyData?.data || []);
+
   const [focuseItem, setFocuseItem] = useState("BASIC INFORMATION");
   const [isUpdated, setIsUpdated] = useState(false);
 
@@ -48,23 +45,31 @@ const Vendor = () => {
   });
 
   useEffect(() => {
+    dispatch(currencyRequest()); 
+  }, [dispatch]);
+
+  useEffect(() => {
     if (fetch) {
+      const currencyObj = currencyList.find((cur) => cur.id === fetch.defaultCurrencyId);
+
       const updatedForm = {
         ...fetch,
         countryId: fetch.country || "",
-        cityId: fetch.city || "",
+        cityId: fetch.cityId || "",
+        currencies: currencyObj?.code || "",
         contactList: (fetch.contactList || []).map((item) => ({
           ...item,
           isDefault: item.isDefault ?? false,
         })),
       };
+
       setFormdata(updatedForm);
 
       if (fetch.country) {
-        dispatch(cityRequest(fetch.country));
+        dispatch(cityRequest());
       }
     }
-  }, [fetch, dispatch]);
+  }, [fetch, currencyList, dispatch]);
 
   const handleInputChange = (updatedData) => {
     setFormdata(updatedData);
@@ -73,18 +78,32 @@ const Vendor = () => {
 
   const generatePayload = (data) => ({
     ...data,
-    country: data.countryId || "",
-    city: data.cityId || "",
+    country: data.countryId || null,
+    city: data.cityId || null,
+    contactList: data.contactList?.length > 0 ? data.contactList : [],
   });
 
   const handleSave = () => {
+    if (
+      !formData.vendorName ||
+      !formData.vendorCode ||
+      !formData.countryId ||
+      !formData.cityId ||
+      formData.contactList.length === 0
+    ) {
+      alert("Please fill all required fields before saving.");
+      return;
+    }
+
     const payload = generatePayload(formData);
+
     if (formData.id) {
       dispatch(updateRequest({ id: formData.id, data: payload }));
     } else {
       dispatch(createRequest(payload));
       dispatch(getIdRequest());
     }
+
     setIsUpdated(false);
   };
 
@@ -103,25 +122,23 @@ const Vendor = () => {
       command: () => setFocuseItem("BASIC INFORMATION"),
     },
     {
-      label: "CONTACTS",
+      label: "CONTACT",
       content: (
         <div className="content">
           <VendorContact formData={formData} setFormdata={handleInputChange} />
         </div>
       ),
-      command: () => setFocuseItem("CONTACTS"),
+      command: () => setFocuseItem("CONTACT"),
     },
   ];
 
   return (
     <div>
-      <div className="vertical-menu-container" style={{paddingLeft: "20px" }}>
+      <div className="vertical-menu-container" style={{ paddingLeft: "20px" }}>
         {menuItems.map((item, index) => (
           <div key={index} className="mb-4">
             <button
-              className={`menu-item ${
-                focuseItem === item.label ? "active" : ""
-              }`}
+              className={`menu-item ${focuseItem === item.label ? "active" : ""}`}
               onClick={item.command}
             >
               {item.label}
@@ -130,7 +147,10 @@ const Vendor = () => {
           </div>
         ))}
       </div>
-      <div className="save-button-container" style={{paddingRight: "20px", paddingBottom: "50px"}}>
+      <div
+        className="save-button-container"
+        style={{ paddingRight: "20px", paddingBottom: "50px" }}
+      >
         <button
           type="submit"
           className="save-btn float-end"

@@ -95,7 +95,7 @@ export function updateService(id, payload) {
   const token = localStorage.getItem("jwt");
   return axios({
     method: "PUT",
-    url: Hastin + "api/vendor/update/" + id,
+    url: Hastin + "api/vendor/update",
     data: payload,
     headers: {
       Authorization: `BslogiKey ${token}`

@@ -3,7 +3,7 @@ import { GET_ID_FAILURE, GET_ID_REQUEST, GET_ID_SUCCESS, UPDATE_FAILURE, UPDATE_
 const initialState = {
   loading: false,
   error: null,
-  data: [],
+  // data: [],
   editObj: null
 };
 
@@ -14,7 +14,7 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-        error: null
+        // error: null
       };
 
     case GET_ID_SUCCESS:
