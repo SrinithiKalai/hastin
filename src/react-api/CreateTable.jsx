@@ -76,5 +76,3 @@ function CreateTable({ setTable }) {
 
 export default CreateTable;
 
-
-
