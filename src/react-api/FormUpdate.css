@@ -24,7 +24,8 @@
   gap: 12px;
 }
 
-.p-inputtext,select {
+.p-inputtext,
+select {
   border: none;
   border-bottom: 1px solid #000;
   border-radius: 0;
@@ -35,7 +36,8 @@
   padding: 6px 8px;
 }
 
-.p-inputtext:focus,select:focus {
+.p-inputtext:focus,
+select:focus {
   border-bottom: 2px solid #1e88e5;
   outline: none;
 }
@@ -91,4 +93,73 @@ select {
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.2s ease;
+}
+
+.underline-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #111010;
+  outline: none;
+  padding: 4px 6px;
+  background: transparent;
+}
+
+.contact-table th {
+  background-color: #0077b6;
+  color: white;
+}
+
+.vertical-menu-container {
+  padding-left: 20px !important;
+}
+
+@media screen and (max-width: 768px) {
+  .update-form-container {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .update-form-grid {
+    grid-template-columns: 1fr;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .update-card {
+    width: 92% !important;
+    padding: 16px !important;
+    margin: 0 auto !important;
+    box-sizing: border-box;
+  }
+
+  .contact-table {
+    overflow-x: auto;
+  }
+
+  .contact-table table {
+    min-width: 600px;
+  }
+
+  .contact-table th,
+  .contact-table td {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .contact-table .btn {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .underline-input {
+    font-size: 13px;
+  }
+
+  .vertical-menu-container {
+    padding-left: 0 !important;
+  }
+
 }

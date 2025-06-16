@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import UpdateForm from "./UpdateForm";
 import VendorContact from "./VendorContact";
 import { useDispatch, useSelector } from "react-redux";
@@ -44,12 +44,16 @@ const Vendor = () => {
     currencies: "",
   });
 
+  const hasPatched = useRef(false);
+
   useEffect(() => {
-    dispatch(currencyRequest()); 
+    dispatch(currencyRequest());
   }, [dispatch]);
 
   useEffect(() => {
-    if (fetch) {
+    if (fetch && !hasPatched.current) {
+      hasPatched.current = true;
+
       const currencyObj = currencyList.find((cur) => cur.id === fetch.defaultCurrencyId);
 
       const updatedForm = {
@@ -134,9 +138,9 @@ const Vendor = () => {
 
   return (
     <div>
-      <div className="vertical-menu-container" style={{ paddingLeft: "20px" }}>
+      <div className="vertical-menu-container">
         {menuItems.map((item, index) => (
-          <div key={index} className="mb-4">
+          <div key={index} className="mb-4 vertical-menu">
             <button
               className={`menu-item ${focuseItem === item.label ? "active" : ""}`}
               onClick={item.command}

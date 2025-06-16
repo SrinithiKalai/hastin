@@ -48,19 +48,18 @@ function HastinLogin() {
     };
 
     return (
-        <div style={{backgroundImage: `url(${image1})`, backgroundSize: "cover", height: "100vh", padding: "120px"}}>
-            <div className='card mx-auto' style={{ width: "450px", height: "400px"}}>
-                <p style={{ fontSize: "20px", textAlign: "center", marginTop: "40px", marginBottom: "50px" }}>Welcome! Log In</p>
-                <input type='text' value={userName} placeholder='User Name' className=' input-field   mx-auto' onChange={(e) => setName(e.target.value)} />
-                {errors.userName && <div style={{ color: 'red', fontSize: '12px', textAlign: 'center' }}>{errors.userName}</div>}
-                <input type='password' value={password} placeholder='Password' className=' input-field mt-4  mx-auto' onChange={(e) => setPassword(e.target.value)} />
-                {errors.password && <div style={{ color: 'red', fontSize: '12px', textAlign: 'center' }}>{errors.password}</div>}
-                <button className='bg-danger text-white mx-auto mt-5' style={{ border: "none", padding: "7px", width: "360px" }} onClick={handleSubmit} >Login</button>
+        <div className="login-container" style={{ backgroundImage: `url(${image1})` }}>
+            <div className='login-card'>
+                <p className='login-title'>Welcome! Log In</p>
+                <input type='text' value={userName} placeholder='User Name' className='input-field' onChange={(e) => setName(e.target.value)} />
+                {errors.userName && <div className='error-text'>{errors.userName}</div>}
+                <input type='password' value={password} placeholder='Password' className='input-field mt-4' onChange={(e) => setPassword(e.target.value)} />
+                {errors.password && <div className='error-text'>{errors.password}</div>}
+                <button className='login-button' onClick={handleSubmit}>Login</button>
             </div>
-            {visible && (
-                <Modal visible={visible} setVisible={setVisible} />
-            )}
+            {visible && <Modal visible={visible} setVisible={setVisible} />}
         </div>
+
     )
 }
 export default HastinLogin

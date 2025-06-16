@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaTrash } from 'react-icons/fa';
+import "./FormUpdate.css";
 
 function VendorContact({ formData, setFormdata }) {
   const contactList = formData.contactList || [];
@@ -28,9 +29,9 @@ function VendorContact({ formData, setFormdata }) {
 
   return (
     <div className="container-fluid">
-      <div className="p-3 border">
+      <div className="contact-table p-3 border">
         <table className="table table-bordered text-center">
-          <thead className="bg-primary text-white">
+          <thead>
             <tr>
               <th>S.NO</th>
               <th>NAME</th>
@@ -45,28 +46,49 @@ function VendorContact({ formData, setFormdata }) {
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>
-                  <input value={contact.name} onChange={e => handleContactChange(index, 'name', e.target.value)} />
+                  <input
+                    className="underline-input"
+                    value={contact.name}
+                    onChange={e => handleContactChange(index, 'name', e.target.value)}
+                  />
                 </td>
                 <td>
-                  <input value={contact.email} onChange={e => handleContactChange(index, 'email', e.target.value)} />
+                  <input
+                    className="underline-input"
+                    value={contact.email}
+                    onChange={e => handleContactChange(index, 'email', e.target.value)}
+                  />
                 </td>
                 <td>
-                  <input value={contact.mobileNo} onChange={e => handleContactChange(index, 'mobileNo', e.target.value)} />
+                  <input
+                    className="underline-input"
+                    value={contact.mobileNo}
+                    onChange={e => handleContactChange(index, 'mobileNo', e.target.value)}
+                  />
                 </td>
                 <td>
-                  <select value={(contact.isDefault ?? false).toString()} onChange={e => handleContactChange(index, 'isDefault', e.target.value === 'true')}>
+                  <select
+                    className="underline-input"
+                    value={(contact.isDefault ?? false).toString()}
+                    onChange={e => handleContactChange(index, 'isDefault', e.target.value === 'true')}
+                  >
                     <option value="true">Yes</option>
                     <option value="false">No</option>
                   </select>
                 </td>
                 <td>
-                  <FaTrash style={{ color: 'red', cursor: 'pointer' }} onClick={() => deleteContactRow(index)} />
+                  <FaTrash
+                    style={{ color: 'red', cursor: 'pointer' }}
+                    onClick={() => deleteContactRow(index)}
+                  />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        <button className="btn mt-3" onClick={addContactRow} style={{ backgroundColor: '#011c69', color: 'white' }}>Add Contact</button>
+        <button className="btn mt-3" onClick={addContactRow} style={{ background: 'linear-gradient(to right, #ec4899, #8b5cf6)', color: 'white', border: 'none' }}>
+          Add Contact
+        </button>
       </div>
     </div>
   );

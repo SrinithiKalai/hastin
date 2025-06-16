@@ -1,0 +1,24 @@
+.mobile-sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background: #f8fafc;
+    z-index: 9999;
+    padding: 15px;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-sidebar p {
+    padding: 10px;
+    margin-bottom: 8px;
+    color: #011c69;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.mobile-sidebar p:hover {
+    background-color: #dbeafe;
+}

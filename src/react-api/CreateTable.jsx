@@ -37,44 +37,46 @@ function CreateTable({ setTable }) {
   return (
     <div>
       <button className='btn bg-success text-white float-end' style={{ borderRadius: "3px", marginRight: "27px", marginTop: "10px" }} onClick={handleNewVendor}>+ New Vendor</button><br />
-      <div style={{ position: "relative", width: "300px", marginTop: "50px", marginBottom: "10px", marginLeft: "79%" }}>
-        <input placeholder='Search' style={{ width: "100%", padding: "10px 35px 10px 10px", borderRadius: "5px", border: "1px solid #ccc", outline: "none", fontSize: "14px" }} />
-        <FaSearch style={{ position: "absolute", top: "50%", right: "10px", transform: "translateY(-50%)", color: "gray" }} />
+      <div className="search-wrapper">
+        <input className="search-input" placeholder="Search" />
+        <FaSearch className="search-icon" />
       </div>
 
-      <table className="vendor-table w-100 text-center mt-3">
-        <thead>
-          <tr>
-            <th>S.NO</th>
-            <th>NAME</th>
-            <th>VENDOR CODE</th>
-            <th>TYPE</th>
-            <th>ADDRESS</th>
-            <th>COUNTRY</th>
-            <th>STATUS</th>
-            <th>ACTION</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tableData?.map((item, index) => (
-            <tr key={index}>
-              <td>{index + 1}</td>
-              <td>
-                <span className="vendor-link" onClick={() => handleEdit(item.id)}>
-                  {item.vendorName}
-                </span>
-              </td>
-
-              <td>{item.vendorCode}</td>
-              <td>{item.vendorType}</td>
-              <td>{item.address}</td>
-              <td>{item.country}</td>
-              <td>{item.status}</td>
-              <td><FaEllipsisVertical style={{ cursor: "pointer" }} /></td>
+      <div className="vendor-table-container">
+        <table className="vendor-table w-100 text-center mt-3">
+          <thead>
+            <tr>
+              <th>S.NO</th>
+              <th>NAME</th>
+              <th>VENDOR CODE</th>
+              <th>TYPE</th>
+              <th>ADDRESS</th>
+              <th>COUNTRY</th>
+              <th>STATUS</th>
+              <th>ACTION</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {tableData?.map((item, index) => (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>
+                  <span className="vendor-link" onClick={() => handleEdit(item.id)}>
+                    {item.vendorName}
+                  </span>
+                </td>
+
+                <td>{item.vendorCode}</td>
+                <td>{item.vendorType}</td>
+                <td>{item.address}</td>
+                <td>{item.country}</td>
+                <td>{item.status}</td>
+                <td><FaEllipsisVertical style={{ cursor: "pointer" }} /></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }
