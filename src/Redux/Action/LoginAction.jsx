@@ -38,6 +38,25 @@ export const apiFailure = (error) => {
     }
 }
 
+export const resendRequest = (payload) => {
+    return {
+        type: Type.RESEND_REQUEST,
+        payload,
+    }
+}
+export const resendSuccess = (data) => {
+    return {
+        type: Type.RESEND_SUCCESS,
+        payload: data
+    }
+}
+export const resendFailure = (error) => {
+    return {
+        type: Type.RESEND_FAILURE,
+        payload: error
+    }
+}
+
 export const tableRequest = (payload) => {
     return {
         type: Type.TABLE_REQUEST,

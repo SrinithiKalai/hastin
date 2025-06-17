@@ -22,6 +22,19 @@ export function apiService(payload) {
   });
 }
 
+export function resendService(payload) {
+  const token = payload.jwt;
+  localStorage.setItem("jwt", token);
+  return axios({
+    method: "POST",
+    url: Hastin + "app/auth/access-code/resend",
+    data: payload,
+    headers: {
+      Authorization: "BslogiKey " + payload.jwt
+    }
+  });
+}
+
 export function tableService(payload) {
   const token = localStorage.getItem("jwt")
   return axios({

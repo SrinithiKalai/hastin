@@ -1,5 +1,5 @@
-import { apiFailure, apiSuccess, cityFailure, citySuccess, countryFailure, countrySuccess, createFailure, createSuccess, currencyFailure, currencySuccess, getIdFailure, getIdSuccess, loginFailure, loginSuccess, tableFailure, tableSuccess, updateFailure, updateSuccess } from '../Action/LoginAction'
-import { apiService, cityService, countryService, createService, currencyService, getIdService, loginService, tableService, updateService } from '../Service/LoginService'
+import { apiFailure, apiSuccess, cityFailure, citySuccess, countryFailure, countrySuccess, createFailure, createSuccess, currencyFailure, currencySuccess, getIdFailure, getIdSuccess, loginFailure, loginSuccess, resendFailure, resendSuccess, tableFailure, tableSuccess, updateFailure, updateSuccess } from '../Action/LoginAction'
+import { apiService, cityService, countryService, createService, currencyService, getIdService, loginService, resendService, tableService, updateService } from '../Service/LoginService'
 import * as TYPE from '../Types'
 import { call, put, takeLatest } from 'redux-saga/effects'
 
@@ -20,6 +20,16 @@ function* apiSaga({ payload }) {
   }
   catch (err) {
     yield put(apiFailure(err))
+  }
+}
+
+function* resendSaga({ payload }) {
+  try {
+    const response = yield call(resendService, payload);
+    yield put(resendSuccess(response.data));
+  }
+  catch (err) {
+    yield put(resendFailure(err))
   }
 }
 
@@ -95,6 +105,7 @@ function* updateSaga({ payload }) {
 export default function* login() {
   yield takeLatest(TYPE.LOGIN_REQUEST, loginSaga);
   yield takeLatest(TYPE.API_REQUEST, apiSaga);
+  yield takeLatest(TYPE.RESEND_REQUEST, resendSaga);
   yield takeLatest(TYPE.TABLE_REQUEST, tableSaga);
   yield takeLatest(TYPE.COUNTRY_REQUEST, countrySaga);
   yield takeLatest(TYPE.CURRENCY_REQUEST, currencySaga);

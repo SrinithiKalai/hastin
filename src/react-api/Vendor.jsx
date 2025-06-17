@@ -12,6 +12,7 @@ const Vendor = () => {
 
   const [focuseItem, setFocuseItem] = useState("BASIC INFORMATION");
   const [isUpdated, setIsUpdated] = useState(false);
+  const [showErrors, setShowErrors] = useState(false);
 
   const [formData, setFormdata] = useState({
     countryId: "",
@@ -87,17 +88,21 @@ const Vendor = () => {
     contactList: data.contactList?.length > 0 ? data.contactList : [],
   });
 
+  const isValidForm = () => {
+    const requiredFields = ["vendorName", "vendorCode", "vendorType", "countryId", "cityId"];
+    const hasEmpty = requiredFields.some((field) => !formData[field]);
+
+    const contactValid = formData.contactList.every(
+      (c) => c.name && c.email && c.mobileNo
+    );
+
+    return !hasEmpty && contactValid;
+  };
+
   const handleSave = () => {
-    if (
-      !formData.vendorName ||
-      !formData.vendorCode ||
-      !formData.countryId ||
-      !formData.cityId ||
-      formData.contactList.length === 0
-    ) {
-      alert("Please fill all required fields before saving.");
-      return;
-    }
+    setShowErrors(true);
+
+    if (!isValidForm()) return;
 
     const payload = generatePayload(formData);
 
@@ -120,6 +125,7 @@ const Vendor = () => {
             formData={formData}
             setFormdata={handleInputChange}
             setIsUpdated={setIsUpdated}
+            showErrors={showErrors}
           />
         </div>
       ),
@@ -129,7 +135,11 @@ const Vendor = () => {
       label: "CONTACT",
       content: (
         <div className="content">
-          <VendorContact formData={formData} setFormdata={handleInputChange} />
+          <VendorContact
+            formData={formData}
+            setFormdata={handleInputChange}
+            showErrors={showErrors}
+          />
         </div>
       ),
       command: () => setFocuseItem("CONTACT"),
@@ -151,10 +161,7 @@ const Vendor = () => {
           </div>
         ))}
       </div>
-      <div
-        className="save-button-container"
-        style={{ paddingRight: "20px", paddingBottom: "50px" }}
-      >
+      <div className="save-button-container" style={{ paddingRight: "20px", paddingBottom: "50px" }}>
         <button
           type="submit"
           className="save-btn float-end"

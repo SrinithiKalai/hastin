@@ -21,19 +21,19 @@
 .update-form-group {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 20px;
 }
 
 .p-inputtext,
 select {
-  border: none;
-  border-bottom: 1px solid #000;
-  border-radius: 0;
-  height: 40px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
   font-size: 14px;
-  background-color: transparent;
-  outline: none;
-  padding: 6px 8px;
+  background-color: #f9f9f9;
+  transition: all 0.2s ease;
+  color: #1b1b1b;
 }
 
 .p-inputtext:focus,
@@ -42,10 +42,66 @@ select:focus {
   outline: none;
 }
 
+.p-invalid {
+  border-bottom: 2px solid red !important;
+}
+
+.p-field {
+  position: relative;
+}
+
+.p-field small {
+  margin-left: 0.25rem;
+  margin-top: 4px;
+  font-size: 12px;
+  color: red;
+  display: block;
+}
+
+.p-field .pi-times-circle {
+  position: absolute;
+  right: 10px;
+  top: 36px;
+  color: red;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.p-dropdown {
+  background-color: #f5f5f5 !important;
+  border: 1px solid #ccc !important;
+  border-radius: 6px !important;
+  font-size: 14px !important;
+  height: 45px !important;
+  padding: 0 0.75rem !important;
+  box-shadow: none !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.p-dropdown-label {
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.p-dropdown.p-focus {
+  box-shadow: none !important;
+  border: 1px solid #ccc !important;
+}
+
+.p-float-label .p-dropdown {
+  width: 100% !important;
+}
+
+.p-dropdown:hover {
+  border-color: #aaa !important;
+}
+
 select {
   appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%204%205'%3E%3Cpath%20fill='black'%20d='M2%205L0%200h4z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
@@ -53,16 +109,21 @@ select {
   padding-right: 24px;
 }
 
+label {
+  font-size: 13px;
+  color: #777;
+}
+
 .update-card {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
   border-radius: 12px;
   background-color: #fff;
-  padding: 50px;
   transition: box-shadow 0.3s ease;
+  width: 100%;
 }
 
 .update-card:hover {
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 .vertical-menu-container {

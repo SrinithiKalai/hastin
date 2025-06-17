@@ -3,6 +3,8 @@ import hastin from '../assets/hastin_logo.png';
 import CreateTable from './CreateTable';
 import Vendor from './Vendor';
 import './TableHastin.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function HastinTable() {
     const [name, setName] = useState('home');
@@ -23,6 +25,7 @@ function HastinTable() {
         setTable('vendor');
         setIsMobileMenuOpen(false);
         setShowMasterSubMenu(false);
+        toast.success('Vendor fetched successfully');
     };
 
     return (
@@ -55,7 +58,8 @@ function HastinTable() {
                                         fontWeight: "500",
                                         backgroundColor: name === 'master' ? '#dbeafe' : 'transparent',
                                         borderRadius: "5px",
-                                        padding: "8px 10px"
+                                        padding: "8px 10px",
+                                        cursor: "pointer"
                                     }}>MASTERS</a>
                             </li>
                             <li className='nav-item'><a className='nav-link' style={navStyle()} href='#'>DASHBOARD</a></li>
@@ -70,15 +74,22 @@ function HastinTable() {
                                 <li className='nav-item'><a className='nav-link' style={navStyle()} href='#'>AGENTS</a></li>
                                 <li className='nav-item'><a className='nav-link' style={navStyle()} href='#'>CUSTOMERS</a></li>
                                 <li className='nav-item'><a className='nav-link' style={navStyle()} href='#'>USERS</a></li>
-                                <li className='nav-item'><a className='nav-link' onClick={() => setTable('vendor')}
-                                    style={{
-                                        color: "#011c69",
-                                        marginRight: "20px",
-                                        fontWeight: "500",
-                                        backgroundColor: table === 'vendor' ? '#dbeafe' : 'transparent',
-                                        borderRadius: "5px",
-                                        padding: "8px 10px"
-                                    }}>VENDORS</a></li>
+                                <li className='nav-item'>
+                                    <a className='nav-link'
+                                        onClick={() => {
+                                            setTable('vendor');
+                                            toast.success('Vendor fetched successfully');
+                                        }}
+                                        style={{
+                                            color: "#011c69",
+                                            marginRight: "20px",
+                                            fontWeight: "500",
+                                            backgroundColor: table === 'vendor' ? '#dbeafe' : 'transparent',
+                                            borderRadius: "5px",
+                                            padding: "8px 10px",
+                                            cursor: "pointer"
+                                        }}>VENDORS</a>
+                                </li>
                                 <li className='nav-item'><a className='nav-link' style={navStyle()} href='#'>DEPOT</a></li>
                                 <li className='nav-item'><a className='nav-link' style={navStyle()} href='#'>CFS</a></li>
                                 <li className='nav-item'><a className='nav-link' style={navStyle()} href='#'>OFFICES</a></li>
@@ -129,10 +140,10 @@ function HastinTable() {
                     </div>
                 )}
             </div>
-
-            {/* Render Components */}
             {table === 'vendor' && <CreateTable setTable={setTable} />}
             {table === 'vendorDetails' && <Vendor />}
+
+            <ToastContainer position="top-right" autoClose={2000} />
         </>
     );
 }
@@ -144,3 +155,4 @@ const navStyle = () => ({
 });
 
 export default HastinTable;
+

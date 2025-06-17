@@ -2,14 +2,12 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
-import {
-  countryRequest,
-  cityRequest,
-  currencyRequest,
-} from "../Redux/Action/LoginAction";
+import { FloatLabel } from "primereact/floatlabel";
+import { Dropdown } from "primereact/dropdown";
+import { countryRequest, cityRequest, currencyRequest } from "../Redux/Action/LoginAction";
 import "./FormUpdate.css";
 
-const UpdateForm = ({ formData, setFormdata, setIsUpdated }) => {
+const UpdateForm = ({ formData, setFormdata, setIsUpdated, showErrors }) => {
   const dispatch = useDispatch();
 
   const countryList = useSelector((state) => state.country.countryData?.data || []);
@@ -30,190 +28,147 @@ const UpdateForm = ({ formData, setFormdata, setIsUpdated }) => {
     setIsUpdated?.(true);
   };
 
-  const handleChangeCountry = (e) => {
-    const value = e.target.value;
+  const handleChangeCountry = (value) => {
     handleChangeInput("countryId", value);
     handleChangeInput("cityId", "");
   };
 
   const filteredCountries = countryList.filter(
-    (c) =>
-      c?.name &&
-      c?.name.trim() !== "" &&
-      c?.name !== "N/A" &&
-      c?.name !== "." &&
-      c?.id
+    (c) => c?.name && c?.name.trim() !== "" && c?.name !== "N/A" && c?.name !== "." && c?.id
   );
 
   const filteredCities = cityList.filter(
-    (city) =>
-      city.countryId === formData.countryId &&
-      (city.cityName || city.name)
+    (city) => city.countryId === formData.countryId && (city.cityName || city.name)
   );
+
+  const renderInput = (label, name, required = false) => {
+    const value = formData[name] || "";
+    const isError = required && showErrors && value.trim() === "";
+
+    return (
+      <div className="p-field" style={{ position: "relative", marginBottom: "1.5rem" }}>
+        <FloatLabel>
+          <InputText
+            id={name}
+            name={name}
+            value={value}
+            onChange={(e) => handleChangeInput(name, e.target.value)}
+            className={`w-full ${isError ? "p-invalid" : ""}`}
+          />
+          <label htmlFor={name}>{label}</label>
+        </FloatLabel>
+        {isError && <small style={{ color: "red" }}>Required</small>}
+      </div>
+    );
+  };
 
   return (
     <div className="update-form-container">
       <div className="update-form-grid">
-
         <Card title="BASIC DETAILS" className="update-card">
           <div className="update-form-group">
-            <InputText
-              name="vendorName"
-              placeholder="Vendor Name"
-              value={formData.vendorName || ""}
-              onChange={(e) =>
-                handleChangeInput(e.target.name, e.target.value)
-              }
-            />
-            <InputText
-              name="vendorCode"
-              placeholder="Vendor Code"
-              value={formData.vendorCode || ""}
-              onChange={(e) =>
-                handleChangeInput(e.target.name, e.target.value)
-              }
-            />
-            <select
-              name="vendorType"
-              value={formData.vendorType || ""}
-              onChange={(e) =>
-                handleChangeInput(e.target.name, e.target.value)
-              }
-              className="p-inputtext p-component"
-            >
-              <option value="">Choose Vendor Type</option>
-              <option value="Individual">Individual</option>
-              <option value="Company">Company</option>
-            </select>
-            <InputText
-              name="companyRegNo"
-              placeholder="Company Registration No"
-              value={formData.companyRegNo || ""}
-              onChange={(e) =>
-                handleChangeInput(e.target.name, e.target.value)
-              }
-            />
-            <select
-              name="defaultCurrencyId"
-              value={formData.defaultCurrencyId || ""}
-              onChange={(e) =>
-                handleChangeInput("defaultCurrencyId", e.target.value)
-              }
-              className="p-inputtext p-component"
-            >
-              <option value="">Choose Currency</option>
-              {currencyList.map((currency) => (
-                <option key={currency.id} value={currency.id}>
-                  {currency.name}
-                </option>
-              ))}
-            </select>
+            {renderInput("Vendor Name", "vendorName", true)}
+            {renderInput("Vendor Code", "vendorCode", true)}
+            <div className="p-field mb-4">
+              <FloatLabel>
+                <Dropdown
+                  id="vendorType"
+                  name="vendorType"
+                  value={formData.vendorType || ""}
+                  options={[
+                    { label: "Individual", value: "Individual" },
+                    { label: "Company", value: "Company" },
+                  ]}
+                  onChange={(e) => handleChangeInput("vendorType", e.value)}
+                  placeholder="Choose Vendor Type"
+                  className={`w-full ${showErrors && !formData.vendorType ? "p-invalid" : ""}`}
+                />
+                <label htmlFor="vendorType">Vendor Type</label>
+              </FloatLabel>
+              {showErrors && !formData.vendorType && (
+                <small style={{ color: "red" }}>Required</small>
+              )}
+            </div>
+            {renderInput("Company Registration No", "companyRegNo", true)}
+            <div className="p-field mb-4">
+              <FloatLabel>
+                <Dropdown
+                  id="defaultCurrencyId"
+                  name="defaultCurrencyId"
+                  value={formData.defaultCurrencyId || ""}
+                  options={currencyList.map((c) => ({
+                    label: c.name,
+                    value: c.id,
+                  }))}
+                  onChange={(e) => handleChangeInput("defaultCurrencyId", e.value)}
+                  placeholder="Choose Currency"
+                  className={`w-full ${showErrors && !formData.defaultCurrencyId ? "p-invalid" : ""}`}
+                />
+                <label htmlFor="defaultCurrencyId">Currency</label>
+              </FloatLabel>
+              {showErrors && !formData.defaultCurrencyId && (
+                <small style={{ color: "red" }}>Required</small>
+              )}
+            </div>
           </div>
         </Card>
 
         <Card title="ADDRESS DETAILS" className="update-card">
           <div className="update-form-group">
-            <InputText
-              name="address1"
-              placeholder="Address 1"
-              value={formData.address1 || ""}
-              onChange={(e) =>
-                handleChangeInput(e.target.name, e.target.value)
-              }
-            />
-            <InputText
-              name="address2"
-              placeholder="Address 2"
-              value={formData.address2 || ""}
-              onChange={(e) =>
-                handleChangeInput(e.target.name, e.target.value)
-              }
-            />
-            <select
-              name="countryId"
-              value={formData.countryId || ""}
-              onChange={handleChangeCountry}
-              className="p-inputtext p-component"
-            >
-              <option value="">Choose Country</option>
-              {filteredCountries.map((country) => (
-                <option key={country.id} value={country.id}>
-                  {country.name}
-                </option>
-              ))}
-            </select>
-            <select
-              name="cityId"
-              value={formData.cityId || ""}
-              onChange={(e) =>
-                handleChangeInput(e.target.name, e.target.value)
-              }
-              disabled={!formData.countryId}
-              className="p-inputtext p-component"
-            >
-              <option value="">
-                {formData.countryId && filteredCities.length === 0
-                  ? "No cities found"
-                  : "Select City"}
-              </option>
-              {filteredCities.map((city) => (
-                <option key={city.id} value={city.id}>
-                  {city.cityName || city.name}
-                </option>
-              ))}
-            </select>
-            <InputText
-              name="postalCode"
-              placeholder="Zip Code"
-              value={formData.postalCode || ""}
-              onChange={(e) =>
-                handleChangeInput(e.target.name, e.target.value)
-              }
-            />
+            {renderInput("Address 1", "address1", true)}
+            {renderInput("Address 2", "address2", true)}
+            <div className="p-field mb-4">
+              <FloatLabel>
+                <Dropdown
+                  id="countryId"
+                  name="countryId"
+                  value={formData.countryId || ""}
+                  options={filteredCountries.map((country) => ({
+                    label: country.name,
+                    value: country.id,
+                  }))}
+                  onChange={(e) => handleChangeCountry(e.value)}
+                  placeholder="Choose Country"
+                  className={`w-full ${showErrors && !formData.countryId ? "p-invalid" : ""}`}
+                />
+                <label htmlFor="countryId">Country</label>
+              </FloatLabel>
+              {showErrors && !formData.countryId && (
+                <small style={{ color: "red" }}>Required</small>
+              )}
+            </div>
+            <div className="p-field mb-4">
+              <FloatLabel>
+                <Dropdown
+                  id="cityId"
+                  name="cityId"
+                  value={formData.cityId || ""}
+                  options={filteredCities.map((city) => ({
+                    label: city.cityName || city.name,
+                    value: city.id,
+                  }))}
+                  onChange={(e) => handleChangeInput("cityId", e.value)}
+                  placeholder={formData.countryId && filteredCities.length === 0 ? "No cities found" : "Select City"}
+                  disabled={!formData.countryId}
+                  className={`w-full ${showErrors && !formData.cityId ? "p-invalid" : ""}`}
+                />
+                <label htmlFor="cityId">City</label>
+              </FloatLabel>
+              {showErrors && !formData.cityId && (
+                <small style={{ color: "red" }}>Required</small>
+              )}
+            </div>
+            {renderInput("Zip Code", "postalCode", true)}
           </div>
         </Card>
+
         <Card title="BANK DETAILS" className="update-card">
           <div className="update-form-group">
-            <InputText
-              name="bankAcctName"
-              placeholder="Bank Account Name"
-              value={formData.bankAcctName || ""}
-              onChange={(e) =>
-                handleChangeInput(e.target.name, e.target.value)
-              }
-            />
-            <InputText
-              name="bankAccountNum"
-              placeholder="Bank Account No"
-              value={formData.bankAccountNum || ""}
-              onChange={(e) =>
-                handleChangeInput(e.target.name, e.target.value)
-              }
-            />
-            <InputText
-              name="bankName"
-              placeholder="Bank Name"
-              value={formData.bankName || ""}
-              onChange={(e) =>
-                handleChangeInput(e.target.name, e.target.value)
-              }
-            />
-            <InputText
-              name="bankBranchName"
-              placeholder="Branch"
-              value={formData.bankBranchName || ""}
-              onChange={(e) =>
-                handleChangeInput(e.target.name, e.target.value)
-              }
-            />
-            <InputText
-              name="bankSwiftCode"
-              placeholder="Swift Code"
-              value={formData.bankSwiftCode || ""}
-              onChange={(e) =>
-                handleChangeInput(e.target.name, e.target.value)
-              }
-            />
+            {renderInput("Bank Account Name", "bankAcctName", true)}
+            {renderInput("Bank Account No", "bankAccountNum", true)}
+            {renderInput("Bank Name", "bankName", true)}
+            {renderInput("Branch", "bankBranchName", true)}
+            {renderInput("Swift Code", "bankSwiftCode", true)}
           </div>
         </Card>
       </div>

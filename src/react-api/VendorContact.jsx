@@ -2,7 +2,7 @@ import React from 'react';
 import { FaTrash } from 'react-icons/fa';
 import "./FormUpdate.css";
 
-function VendorContact({ formData, setFormdata }) {
+function VendorContact({ formData, setFormdata, showErrors }) {
   const contactList = formData.contactList || [];
 
   const handleContactChange = (index, field, value) => {
@@ -19,14 +19,14 @@ function VendorContact({ formData, setFormdata }) {
   };
 
   const deleteContactRow = (index) => {
-    if (contactList.length === 1) {
-      alert("At least one contact must remain.");
-      return;
-    }
+    if (contactList.length === 1) return;
     const updated = contactList.filter((_, i) => i !== index);
     setFormdata({ ...formData, contactList: updated });
   };
 
+  const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  const isValidPhone = (phone) => /^\d{7,15}$/.test(phone);
   return (
     <div className="container-fluid">
       <div className="contact-table p-3 border">
@@ -51,6 +51,9 @@ function VendorContact({ formData, setFormdata }) {
                     value={contact.name}
                     onChange={e => handleContactChange(index, 'name', e.target.value)}
                   />
+                  {showErrors && !contact.name && (
+                    <div className="text-danger">Name is required</div>
+                  )}
                 </td>
                 <td>
                   <input
@@ -58,6 +61,12 @@ function VendorContact({ formData, setFormdata }) {
                     value={contact.email}
                     onChange={e => handleContactChange(index, 'email', e.target.value)}
                   />
+                  {showErrors && !contact.email && (
+                    <div className="text-danger">Email is required</div>
+                  )}
+                  {showErrors && contact.email && !isValidEmail(contact.email) && (
+                    <div className="text-danger">Invalid email format</div>
+                  )}
                 </td>
                 <td>
                   <input
@@ -65,6 +74,12 @@ function VendorContact({ formData, setFormdata }) {
                     value={contact.mobileNo}
                     onChange={e => handleContactChange(index, 'mobileNo', e.target.value)}
                   />
+                  {showErrors && !contact.mobileNo && (
+                    <div className="text-danger">Phone number is required</div>
+                  )}
+                  {showErrors && contact.mobileNo && !isValidPhone(contact.mobileNo) && (
+                    <div className="text-danger">Invalid phone number</div>
+                  )}
                 </td>
                 <td>
                   <select
@@ -86,7 +101,11 @@ function VendorContact({ formData, setFormdata }) {
             ))}
           </tbody>
         </table>
-        <button className="btn mt-3" onClick={addContactRow} style={{ background: 'linear-gradient(to right, #ec4899, #8b5cf6)', color: 'white', border: 'none' }}>
+        <button
+          className="btn mt-3"
+          onClick={addContactRow}
+          style={{ background: 'linear-gradient(to right, #ec4899, #8b5cf6)', color: 'white', border: 'none' }}
+        >
           Add Contact
         </button>
       </div>
