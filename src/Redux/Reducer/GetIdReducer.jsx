@@ -3,7 +3,6 @@ import { GET_ID_FAILURE, GET_ID_REQUEST, GET_ID_SUCCESS, UPDATE_FAILURE, UPDATE_
 const initialState = {
   loading: false,
   error: null,
-  // data: [],
   editObj: null
 };
 
