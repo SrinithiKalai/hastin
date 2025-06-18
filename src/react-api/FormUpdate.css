@@ -159,10 +159,30 @@ label {
 .underline-input {
   width: 100%;
   border: none;
-  border-bottom: 1px solid #111010;
+  border-bottom: 1px solid #ccc;
   outline: none;
-  padding: 4px 6px;
+  padding: 4px 8px;
   background: transparent;
+}
+
+.underline-input::placeholder {
+  color: #aaa;
+  font-size: 14px;
+}
+
+.table-header th {
+  background-color: #3b82f6;
+  color: white;
+  font-weight: 600;
+}
+
+.table td, .table th {
+  vertical-align: middle !important;
+}
+
+.text-danger {
+  font-size: 12px;
+  margin-top: 2px;
 }
 
 .contact-table th {

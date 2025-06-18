@@ -76,6 +76,63 @@ export const tableFailure = (error) => {
     }
 }
 
+export const inactiveRequest = (payload) => {
+    return {
+        type: Type.INACTIVE_REQUEST,
+        payload,
+    }
+}
+export const inactiveSuccess = (data) => {
+    return {
+        type: Type.INACTIVE_SUCCESS,
+        payload: data
+    }
+}
+export const inactiveFailure = (error) => {
+    return {
+        type: Type.INACTIVE_FAILURE,
+        payload: error
+    }
+}
+
+export const tableIdRequest = (id) => {
+    return {
+        type: Type.TABLE_ID_REQUEST,
+        payload: id
+    }
+}
+export const tableIdSuccess = (data) => {
+    return {
+        type: Type.TABLE_ID_SUCCESS,
+        payload: data
+    }
+}
+export const tableIdFailure = (error) => {
+    return {
+        type: Type.TABLE_ID_FAILURE,
+        payload: error
+    }
+}
+
+export const inactiveIdRequest = (id) => {
+    return {
+        type: Type.INACTIVE_ID_REQUEST,
+        payload: id
+    }
+}
+export const inactiveIdSuccess = (data) => {
+    return {
+        type: Type.INACTIVE_ID_SUCCESS,
+        payload: data
+    }
+}
+export const inactiveIdFailure = (error) => {
+    return {
+        type: Type.INACTIVE_ID_FAILURE,
+        payload: error
+    }
+}
+
 export const currencyRequest = () => {
     return {
         type: Type.CURRENCY_REQUEST,

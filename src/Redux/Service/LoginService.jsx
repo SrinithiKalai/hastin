@@ -47,6 +47,40 @@ export function tableService(payload) {
   });
 }
 
+export function inactiveService(payload) {
+  const token = localStorage.getItem("jwt")
+  return axios({
+    method: "PUT",
+    url: Hastin + "api/vendor/search/inactive",
+    data: payload,
+    headers: {
+      Authorization: `BslogiKey ${token}`
+    }
+  });
+}
+
+export function tableIdService(id) {
+  const token = localStorage.getItem("jwt")
+  return axios({
+    method: "PUT",
+    url: Hastin + "api/vendor/active/" + id,
+    headers: {
+      Authorization: `BslogiKey ${token}`
+    }
+  });
+}
+
+export function inactiveIdService(id) {
+  const token = localStorage.getItem("jwt")
+  return axios({
+    method: "PUT",
+    url: Hastin + "api/vendor/inactive/" + id,
+    headers: {
+      Authorization: `BslogiKey ${token}`
+    }
+  });
+}
+
 export function currencyService() {
     const token = localStorage.getItem("jwt");
     return axios({

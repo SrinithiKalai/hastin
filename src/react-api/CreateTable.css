@@ -55,6 +55,7 @@
   border: 1px solid #ccc;
   outline: none;
   font-size: 14px;
+  margin-top: -8px;
 }
 
 .search-icon {
@@ -64,6 +65,41 @@
   transform: translateY(-50%);
   color: gray;
 }
+
+.custom-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.custom-modal {
+  background-color: white;
+  border-radius: 10px;
+  padding: 25px 30px;
+  width: 400px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.modal-title {
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.modal-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
 
 @media screen and (max-width: 768px) {
   .vendor-table-container {

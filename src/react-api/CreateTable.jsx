@@ -2,13 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { FaSearch } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { FaEllipsisVertical } from "react-icons/fa6";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import './CreateTable.css';
-import {
-  countryRequest,
-  currencyRequest,
-  getIdRequest,
-  tableRequest
-} from '../Redux/Action/LoginAction';
+import { countryRequest, currencyRequest, getIdRequest, tableRequest, inactiveRequest, tableIdRequest, inactiveIdRequest } from '../Redux/Action/LoginAction';
 
 function CreateTable({ setTable }) {
   const tableData = useSelector(state => state.login?.error?.data?.tableData);
@@ -16,9 +13,17 @@ function CreateTable({ setTable }) {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
+  const [activeTab, setActiveTab] = useState("ACTIVE");
+  const [showModal, setShowModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+
   const itemsPerPage = 10;
 
   useEffect(() => {
+    fetchTableData(activeTab);
+  }, [dispatch, activeTab]);
+
+  const fetchTableData = (status) => {
     const payload = {
       pagination: {
         index: 1,
@@ -27,8 +32,12 @@ function CreateTable({ setTable }) {
         sortingObj: null
       }
     };
-    dispatch(tableRequest(payload));
-  }, [dispatch]);
+    if (status === "ACTIVE") {
+      dispatch(tableRequest(payload));
+    } else {
+      dispatch(inactiveRequest(payload));
+    }
+  };
 
   const handleNewVendor = () => {
     dispatch(countryRequest());
@@ -43,8 +52,25 @@ function CreateTable({ setTable }) {
     setTable('vendorDetails');
   };
 
+  const handleConfirm = () => {
+    if (selectedItem) {
+      const { id, status } = selectedItem;
+      if (status === "ACTIVE") {
+        dispatch(inactiveIdRequest(id));
+        toast.success("Vendor marked as INACTIVE");
+        setTimeout(() => fetchTableData("ACTIVE"), 500);
+      } else {
+        dispatch(tableIdRequest(id));
+        toast.success("Vendor marked as ACTIVE");
+        setTimeout(() => fetchTableData("INACTIVE"), 500);
+      }
+      setShowModal(false);
+    }
+  };
+
   const filteredData = tableData?.filter(item =>
-    item.vendorName?.toLowerCase().includes(searchTerm.toLowerCase())
+    item.vendorName?.toLowerCase().includes(searchTerm.toLowerCase()) &&
+    item.status === activeTab
   ) || [];
 
   const totalItems = filteredData.length;
@@ -54,17 +80,35 @@ function CreateTable({ setTable }) {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchTerm]);
+  }, [searchTerm, activeTab]);
 
   return (
     <div>
       <button
         className='btn bg-success text-white float-end'
-        style={{ borderRadius: "3px", marginRight: "27px", marginTop: "10px" }}
+        style={{ borderRadius: "3px", marginRight: "27px", marginTop: "-8px" }}
         onClick={handleNewVendor}
       >
         + New Vendor
       </button><br />
+
+      <div style={{ display: "flex", borderBottom: "2px solid #ccc", marginTop: "-8px", width: "100%" }}>
+        {["ACTIVE", "INACTIVE"].map(tab => (
+          <div
+            key={tab}
+            style={{
+              padding: "10px 20px",
+              cursor: "pointer",
+              borderBottom: activeTab === tab ? "3px solid #011c69" : "none",
+              color: activeTab === tab ? "#011c69" : "#000",
+              fontWeight: activeTab === tab ? "bold" : "normal"
+            }}
+            onClick={() => setActiveTab(tab)}
+          >
+            {tab}
+          </div>
+        ))}
+      </div>
 
       <div className="search-wrapper">
         <input
@@ -95,23 +139,36 @@ function CreateTable({ setTable }) {
               paginatedData.map((item, index) => (
                 <tr key={index}>
                   <td>{startIndex + index + 1}</td>
-                  <td>
-                    <span className="vendor-link" onClick={() => handleEdit(item.id)}>
-                      {item.vendorName}
-                    </span>
-                  </td>
+                  <td><span className="vendor-link" onClick={() => handleEdit(item.id)}>{item.vendorName}</span></td>
                   <td>{item.vendorCode}</td>
                   <td>{item.vendorType}</td>
-                  <td>{item.address}</td>
+                  <td
+                    title={item.address}
+                    style={{
+                      maxWidth: "150px",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis"
+                    }}
+                  >
+                    {item.address}
+                  </td>
                   <td>{item.country}</td>
                   <td>{item.status}</td>
-                  <td><FaEllipsisVertical style={{ cursor: "pointer" }} /></td>
+                  <td>
+                    <FaEllipsisVertical
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        setSelectedItem(item);
+                        setShowModal(true);
+                      }}
+                      title={`Mark as ${item.status === "ACTIVE" ? "INACTIVE" : "ACTIVE"}`}
+                    />
+                  </td>
                 </tr>
               ))
             ) : (
-              <tr>
-                <td colSpan="8">No records found</td>
-              </tr>
+              <tr><td colSpan="8">No records found</td></tr>
             )}
           </tbody>
         </table>
@@ -136,6 +193,19 @@ function CreateTable({ setTable }) {
               {i + 1}
             </button>
           ))}
+        </div>
+      )}
+
+      {showModal && selectedItem && (
+        <div className="custom-modal-overlay">
+          <div className="custom-modal">
+            <h4 className="modal-title">Confirmation</h4>
+            <p>Are you sure you want to {selectedItem.status === "ACTIVE" ? "INACTIVE" : "ACTIVE"} "<strong>{selectedItem.vendorName}</strong>"?</p>
+            <div className="modal-actions">
+              <button className="btn btn-secondary me-2" onClick={() => setShowModal(false)}>No</button>
+              <button className="btn btn-primary" onClick={handleConfirm}>Yes</button>
+            </div>
+          </div>
         </div>
       )}
     </div>
