@@ -141,7 +141,8 @@ function HastinTable() {
                 )}
             </div>
             {table === 'vendor' && <CreateTable setTable={setTable} />}
-            {table === 'vendorDetails' && <Vendor />}
+            {table === 'vendorDetails' && <Vendor setTable={setTable} />}
+
 
             <ToastContainer position="top-right" autoClose={2000} />
         </>

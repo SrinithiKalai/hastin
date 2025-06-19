@@ -19,13 +19,30 @@ function VendorContact({ formData, setFormdata, showErrors }) {
   const addContactRow = () => {
     const updated = [
       ...contactList,
-      { name: '', email: '', mobileNo: '', isDefault: undefined }
+      { name: '', email: '', mobileNo: '', isDefault: undefined },
     ];
     setFormdata({ ...formData, contactList: updated });
   };
 
   const deleteContactRow = (index) => {
-    if (contactList.length === 1) return;
+  if (contactList.length === 1) {
+    const onlyContact = contactList[0];
+
+    const isEmpty =
+      !onlyContact.name?.trim() &&
+      !onlyContact.email?.trim() &&
+      !onlyContact.mobileNo?.trim();
+
+    if (isEmpty) {
+      alert("At least one contact is required.");
+      return;
+    }
+
+    const cleared = [{ name: '', email: '', mobileNo: '', isDefault: undefined }];
+    setFormdata({ ...formData, contactList: cleared });
+    return;
+  }
+
     const updated = contactList.filter((_, i) => i !== index);
     setFormdata({ ...formData, contactList: updated });
   };
@@ -55,81 +72,99 @@ function VendorContact({ formData, setFormdata, showErrors }) {
                 <td>{index + 1}</td>
 
                 <td>
-                  <input
-                    className="underline-input"
-                    placeholder="Name"
-                    value={contact.name}
-                    onChange={(e) =>
-                      handleContactChange(index, 'name', e.target.value)
-                    }
-                  />
-                  {showErrors && !contact.name && (
-                    <div className="text-danger">Name is required</div>
-                  )}
-                </td>
-
-                <td>
-                  <input
-                    className="underline-input"
-                    placeholder="Email"
-                    value={contact.email}
-                    onChange={(e) =>
-                      handleContactChange(index, 'email', e.target.value)
-                    }
-                  />
-                  {showErrors && !contact.email && (
-                    <div className="text-danger">Email is required</div>
-                  )}
-                  {showErrors &&
-                    contact.email &&
-                    !isValidEmail(contact.email) && (
-                      <div className="text-danger">Invalid email format</div>
+                  <div className="p-field">
+                    <input
+                      className={`underline-input ${showErrors && !contact.name ? 'p-invalid' : ''}`}
+                      placeholder="Name"
+                      value={contact.name}
+                      onChange={(e) =>
+                        handleContactChange(index, 'name', e.target.value)
+                      }
+                    />
+                    {showErrors && !contact.name && (
+                      <small>Name is required</small>
                     )}
+                  </div>
                 </td>
 
                 <td>
-                  <input
-                    className="underline-input"
-                    placeholder="Phone No"
-                    value={contact.mobileNo}
-                    onChange={(e) =>
-                      handleContactChange(index, 'mobileNo', e.target.value)
-                    }
-                  />
-                  {showErrors && !contact.mobileNo && (
-                    <div className="text-danger">Phone number is required</div>
-                  )}
-                  {showErrors &&
-                    contact.mobileNo &&
-                    !isValidPhone(contact.mobileNo) && (
-                      <div className="text-danger">Invalid phone number</div>
+                  <div className="p-field">
+                    <input
+                      className={`underline-input ${
+                        showErrors &&
+                        (!contact.email || !isValidEmail(contact.email))
+                          ? 'p-invalid'
+                          : ''
+                      }`}
+                      placeholder="Email"
+                      value={contact.email}
+                      onChange={(e) =>
+                        handleContactChange(index, 'email', e.target.value)
+                      }
+                    />
+                    {showErrors && !contact.email && (
+                      <small>Email is required</small>
                     )}
+                    {showErrors &&
+                      contact.email &&
+                      !isValidEmail(contact.email) && (
+                        <small>Invalid email format</small>
+                      )}
+                  </div>
                 </td>
 
                 <td>
-                  <select
-                    className="underline-input"
-                    value={
-                      contact.isDefault === true
-                        ? 'true'
-                        : contact.isDefault === false
-                        ? 'false'
-                        : ''
-                    }
-                    onChange={(e) =>
-                      handleContactChange(
-                        index,
-                        'isDefault',
-                        e.target.value === 'true'
-                      )
-                    }
-                  >
-                    <option value="" disabled hidden>
-                      Is Default
-                    </option>
-                    <option value="true">Yes</option>
-                    <option value="false">No</option>
-                  </select>
+                  <div className="p-field">
+                    <input
+                      className={`underline-input ${
+                        showErrors &&
+                        (!contact.mobileNo || !isValidPhone(contact.mobileNo))
+                          ? 'p-invalid'
+                          : ''
+                      }`}
+                      placeholder="Phone No"
+                      value={contact.mobileNo}
+                      onChange={(e) =>
+                        handleContactChange(index, 'mobileNo', e.target.value)
+                      }
+                    />
+                    {showErrors && !contact.mobileNo && (
+                      <small>Phone number is required</small>
+                    )}
+                    {showErrors &&
+                      contact.mobileNo &&
+                      !isValidPhone(contact.mobileNo) && (
+                        <small>Invalid phone number</small>
+                      )}
+                  </div>
+                </td>
+
+                <td>
+                  <div className="p-field">
+                    <select
+                      className="underline-input"
+                      value={
+                        contact.isDefault === true
+                          ? 'true'
+                          : contact.isDefault === false
+                          ? 'false'
+                          : ''
+                      }
+                      onChange={(e) =>
+                        handleContactChange(
+                          index,
+                          'isDefault',
+                          e.target.value === 'true'
+                        )
+                      }
+                    >
+                      <option value="" disabled hidden>
+                        Is Default
+                      </option>
+                      <option value="true">Yes</option>
+                      <option value="false">No</option>
+                    </select>
+                  </div>
                 </td>
 
                 <td>

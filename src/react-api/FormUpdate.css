@@ -100,6 +100,13 @@ select:focus {
   border-color: #aaa !important;
 }
 
+.p-dropdown.p-invalid .p-inputtext,
+.p-dropdown.p-invalid {
+  border-bottom: 2px solid red !important;
+  border-radius: 10px !important; 
+}
+
+
 select {
   appearance: none;
   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%204%205'%3E%3Cpath%20fill='black'%20d='M2%205L0%200h4z'/%3E%3C/svg%3E");

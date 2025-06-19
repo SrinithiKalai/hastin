@@ -4,8 +4,9 @@ import VendorContact from "./VendorContact";
 import { useDispatch, useSelector } from "react-redux";
 import { createRequest, updateRequest, getIdRequest, cityRequest, currencyRequest } from "../Redux/Action/LoginAction";
 import "./FormUpdate.css";
+import { FaArrowLeft } from "react-icons/fa";
 
-const Vendor = () => {
+const Vendor = ({ setTable }) => {
   const dispatch = useDispatch();
   const fetch = useSelector((state) => state.user.editObj);
   const currencyList = useSelector((state) => state.currency.currencyData?.data || []);
@@ -132,7 +133,7 @@ const Vendor = () => {
       command: () => setFocuseItem("BASIC INFORMATION"),
     },
     {
-      label: "CONTACT",
+      label: "CONTACT DETAILS",
       content: (
         <div className="content">
           <VendorContact
@@ -142,12 +143,19 @@ const Vendor = () => {
           />
         </div>
       ),
-      command: () => setFocuseItem("CONTACT"),
+      command: () => setFocuseItem("CONTACT DETAILS"),
     },
   ];
 
   return (
     <div>
+      <div style={{ paddingRight: "20px" }}>
+        <button className="btn btn-secondary float-end" onClick={() => setTable('vendor')}>
+          <FaArrowLeft style={{ marginRight: "5px" }} />
+          Go Back
+        </button>
+
+      </div>
       <div className="vertical-menu-container">
         {menuItems.map((item, index) => (
           <div key={index} className="mb-4 vertical-menu">
