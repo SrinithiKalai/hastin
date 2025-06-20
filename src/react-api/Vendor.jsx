@@ -23,7 +23,7 @@ const Vendor = ({ setTable }) => {
         name: "",
         email: "",
         mobileNo: "",
-        isDefault: false,
+        isDefault: undefined,
         id: null,
       },
     ],
@@ -65,7 +65,7 @@ const Vendor = ({ setTable }) => {
         currencies: currencyObj?.code || "",
         contactList: (fetch.contactList || []).map((item) => ({
           ...item,
-          isDefault: item.isDefault ?? false,
+          isDefault: item.isDefault ?? undefined,
         })),
       };
 
