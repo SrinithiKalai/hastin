@@ -2,14 +2,24 @@ import React, { useEffect, useState, useRef } from "react";
 import UpdateForm from "./UpdateForm";
 import VendorContact from "./VendorContact";
 import { useDispatch, useSelector } from "react-redux";
-import { createRequest, updateRequest, getIdRequest, cityRequest, currencyRequest } from "../Redux/Action/LoginAction";
+import {
+  createRequest,
+  updateRequest,
+  getIdRequest,
+  cityRequest,
+  currencyRequest,
+} from "../Redux/Action/LoginAction";
 import "./FormUpdate.css";
 import { FaArrowLeft } from "react-icons/fa";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Vendor = ({ setTable }) => {
   const dispatch = useDispatch();
   const fetch = useSelector((state) => state.user.editObj);
-  const currencyList = useSelector((state) => state.currency.currencyData?.data || []);
+  const currencyList = useSelector(
+    (state) => state.currency.currencyData?.data || []
+  );
 
   const [focuseItem, setFocuseItem] = useState("BASIC INFORMATION");
   const [isUpdated, setIsUpdated] = useState(false);
@@ -56,7 +66,9 @@ const Vendor = ({ setTable }) => {
     if (fetch && !hasPatched.current) {
       hasPatched.current = true;
 
-      const currencyObj = currencyList.find((cur) => cur.id === fetch.defaultCurrencyId);
+      const currencyObj = currencyList.find(
+        (cur) => cur.id === fetch.defaultCurrencyId
+      );
 
       const updatedForm = {
         ...fetch,
@@ -109,9 +121,11 @@ const Vendor = ({ setTable }) => {
 
     if (formData.id) {
       dispatch(updateRequest({ id: formData.id, data: payload }));
+      toast.success("Vendor updated successfully");
     } else {
       dispatch(createRequest(payload));
       dispatch(getIdRequest());
+      toast.success("Vendor saved successfully");
     }
 
     setIsUpdated(false);
@@ -150,12 +164,12 @@ const Vendor = ({ setTable }) => {
   return (
     <div>
       <div style={{ paddingRight: "20px" }}>
-        <button className="btn btn-secondary float-end" onClick={() => setTable('vendor')}>
+        <button className="btn btn-secondary float-end" onClick={() => setTable("vendor")}>
           <FaArrowLeft style={{ marginRight: "5px" }} />
           Go Back
         </button>
-
       </div>
+
       <div className="vertical-menu-container">
         {menuItems.map((item, index) => (
           <div key={index} className="mb-4 vertical-menu">
@@ -169,7 +183,11 @@ const Vendor = ({ setTable }) => {
           </div>
         ))}
       </div>
-      <div className="save-button-container" style={{ paddingRight: "20px", paddingBottom: "50px" }}>
+
+      <div
+        className="save-button-container"
+        style={{ paddingRight: "20px", paddingBottom: "50px" }}
+      >
         <button
           type="submit"
           className="save-btn float-end"

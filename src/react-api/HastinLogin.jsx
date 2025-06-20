@@ -29,10 +29,6 @@ function HastinLogin() {
             toast.success("Login successfully!");
             setVisible(true);
         }
-
-        if (!loading && error) {
-            toast.error("Username or password is incorrect");
-        }
     }, [loading, response, error]);
 
     const handleSubmit = async (e) => {
