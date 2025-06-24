@@ -1,77 +1,104 @@
-.vendor-table {
-  border-collapse: collapse;
+.top-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.tab-search-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  gap: 10px;
+}
+
+.tabs {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.tab {
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: 500;
   font-size: 14px;
 }
 
-.vendor-table th {
-  background-color: #011c69;
-  color: white;
-  height: 40px;
-  font-size: 13px;
-  padding: 8px;
+.tab.active {
+  border-bottom: 3px solid #011c69;
+  color: #011c69;
+  font-weight: bold;
 }
 
-.vendor-table td {
-  border-bottom: 1px solid #ddd;
-  padding: 8px;
-  font-size: 13px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 150px;
+.search-box {
+  position: relative;
+  max-width: 300px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
-.vendor-table tr:nth-child(even) {
-  background-color: #f9f9f9;
+.search-box input {
+  width: 100%;
+  padding-right: 30px;
+  margin-bottom: 8px;
+  font-size: 14px;
 }
 
-.vendor-table tr:hover {
-  background-color: #f1f1f1;
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: gray;
 }
 
 .vendor-link {
   color: #0d6efd;
   text-decoration: none;
   cursor: pointer;
+  font-size: 13px;
 }
 
 .vendor-link:hover {
   text-decoration: underline;
 }
 
-.search-wrapper {
-  position: relative;
-  width: 300px;
-  margin-top: 50px;
-  margin-bottom: 10px;
-  margin-left: auto;
-  margin-right: 27px;
+.vendor-table th {
+  font-size: 13px;
+  background-color: #011c69;
+  color: white;
+  white-space: nowrap;
 }
 
-.search-input {
-  width: 100%;
-  padding: 10px 35px 10px 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  outline: none;
+.vendor-table td {
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
   font-size: 14px;
-  margin-top: -8px;
 }
 
-.search-icon {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  color: gray;
+.table-only-wrapper {
+  margin: 0 50px;
 }
 
 .custom-modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
   background-color: rgba(0,0,0,0.3);
   display: flex;
   align-items: center;
@@ -94,46 +121,69 @@
   font-weight: bold;
 }
 
-.modal-actions {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-}
+/* ✅ Mobile View Improvements */
+@media (max-width: 768px) {
+  .tab-search-wrapper {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
 
+  .top-bar {
+    justify-content: center;
+  }
 
-@media screen and (max-width: 768px) {
+  .top-bar button {
+    width: 95%;
+    margin-top: 10px;
+  }
+
+  .search-box {
+    justify-content: center;
+  }
+
   .vendor-table-container {
-    padding: 10px;
     overflow-x: auto;
   }
 
   .vendor-table {
-    width: 100%;
     font-size: 12px;
     min-width: 600px;
   }
 
-  .vendor-table th,
-  .vendor-table td {
-    padding: 6px;
+  .vendor-table th, .vendor-table td {
+    font-size: 11px;
+  }
+
+  .pagination-wrapper {
+    flex-direction: row;
     font-size: 12px;
-    white-space: nowrap;
+    gap: 5px;
+    flex-wrap: nowrap;
   }
 
-  .table-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+  .custom-modal {
+    width: 90%;
+    padding: 20px;
   }
 
-  .search-wrapper {
-    width: 100%;
-    margin-left: 0;
-    margin-right: 0;
-    padding: 0 10px;
+  .modal-title {
+    font-size: 18px;
   }
 
-  .search-input {
+  .search-box input {
     font-size: 13px;
+  }
+
+  .tab {
+    font-size: 13px;
+  }
+
+  .vendor-link {
+    font-size: 12px;
+  }
+
+  .table-only-wrapper {
+    margin: 0 15px;
   }
 }

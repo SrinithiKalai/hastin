@@ -1,0 +1,75 @@
+.go-back-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 0;
+}
+.save-button-container {
+  padding: 0 20px 40px;
+  text-align: right;
+}
+.vertical-menu-container{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.menu-item {
+     background-color: #003366;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+.menu-item.active {
+    background-color: #005fa3;
+}
+
+.save-btn {
+    background-color: #25ca4b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+     padding: 7px;
+}
+
+@media screen and (max-width: 768px) {
+  .menu-item {
+    width: 100%;
+    font-size: 14px;
+    background-color: #003366;
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+  }
+
+  .menu-item.active {
+    background-color: #005fa3;
+    margin-bottom: 10px;
+  }
+
+  .save-btn {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+    background-color: #25ca4b;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    margin-top: -8px;
+  }
+
+  .save-button-container {
+    padding: 0 10px 40px;
+    text-align: center;
+  }
+  
+  .go-back-container {
+    padding: 10px;
+  }
+
+  .go-back-container .btn {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+}

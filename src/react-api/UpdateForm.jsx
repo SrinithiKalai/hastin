@@ -116,7 +116,7 @@ const UpdateForm = ({ formData, setFormdata, setIsUpdated, showErrors }) => {
         <Card title="ADDRESS DETAILS" className="update-card">
           <div className="update-form-group">
             {renderInput("Address 1", "address1", true)}
-            {renderInput("Address 2", "address2", true)}
+            {renderInput("Address 2", "address2")}
             <div className="p-field mb-4">
               <FloatLabel>
                 <Dropdown
@@ -164,11 +164,11 @@ const UpdateForm = ({ formData, setFormdata, setIsUpdated, showErrors }) => {
 
         <Card title="BANK DETAILS" className="update-card">
           <div className="update-form-group">
-            {renderInput("Bank Account Name", "bankAcctName", true)}
-            {renderInput("Bank Account No", "bankAccountNum", true)}
-            {renderInput("Bank Name", "bankName", true)}
-            {renderInput("Branch", "bankBranchName", true)}
-            {renderInput("Swift Code", "bankSwiftCode", true)}
+            {renderInput("Bank Account Name", "bankAcctName")}
+            {renderInput("Bank Account No", "bankAccountNum")}
+            {renderInput("Bank Name", "bankName")}
+            {renderInput("Branch", "bankBranchName")}
+            {renderInput("Swift Code", "bankSwiftCode")}
           </div>
         </Card>
       </div>

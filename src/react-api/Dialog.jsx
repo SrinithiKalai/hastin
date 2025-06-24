@@ -67,35 +67,45 @@ function Modal({ setVisible, visible }) {
       visible={visible}
       position="top"
       style={{
-        maxWidth: '100vw',
+        width: '500px',
         backgroundColor: 'white',
         boxShadow: '2px 2px 10px #D3D3D3',
-        padding: '20px'
+        borderRadius: '12px',
       }}
       onHide={() => setVisible(false)}
+      draggable={false}
     >
-      <h3 style={{ textAlign: 'center' }}>Enter The OTP</h3>
-      <p className="text-center">
-        We've sent an OTP to +6591495625 ** To Continue the application,
+      <h4 style={{ textAlign: 'center', fontWeight: 'bold' }}>Enter The OTP</h4>
+      <p className="text-center" style={{ marginTop: 10, fontSize: '14px' }}>
+        We've sent an OTP to <strong>+6591495625**</strong><br />
+        To continue the application, please enter the OTP below.
       </p>
-      <p className="text-center pb-0">please enter the OTP below</p>
 
-      <div className="text-center mt-2 mb-3">
+      <div className="text-center mt-3 mb-3">
         {!sessionExpired && (
-          <label className="mx-2">{success?.data?.opaque} - </label>
+          <label className="mx-2" style={{ fontWeight: 'bold' }}>{success?.data?.opaque} - </label>
         )}
         <input
           type="text"
-          style={{ width: '100px', textAlign: 'center' }}
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          autoFocus
+          onPaste={(e) => e.preventDefault()}
           disabled={sessionExpired}
+          style={{
+            width: '100px',
+            height: '40px',
+            fontSize: '18px',
+            textAlign: 'center',
+            borderRadius: '10px',
+            border: '1px solid #ced4da'
+          }}
         />
       </div>
 
       {sessionExpired && (
-        <p className="text-danger text-center mt-2 mb-0">
-          OTP has expired. Resend OTP
+        <p className="text-danger text-center mt-2 mb-0" style={{ fontSize: '14px' }}>
+          OTP has expired. Please click "Resend OTP"
         </p>
       )}
 
@@ -117,8 +127,8 @@ function Modal({ setVisible, visible }) {
             color: canResend ? 'red' : '#6c757d'
           }}
         >
-          <span style={{ marginRight: '5px' }}>🕒</span>
-          <span>{formatTime(timer)}</span>
+          <span style={{ marginRight: '5px', marginTop: "5px" }}>🕒</span>
+          <span style={{marginTop: "5px"}}>{formatTime(timer)}</span>
         </div>
 
         <button

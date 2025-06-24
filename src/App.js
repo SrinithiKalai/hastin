@@ -32,12 +32,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HastinLogin />} />
-          <Route path="table/" element={<HastinTable />} />
+          <Route path="/table" element={<HastinTable />} />
         </Routes>
       </BrowserRouter>
-
       {/* ✅ Toast Container */}
-      <ToastContainer position="top-right" autoClose={3000} />
+      {/* <ToastContainer position="top-right" autoClose={3000} /> */}
     </div>
   );
 }

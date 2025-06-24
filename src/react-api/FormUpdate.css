@@ -1,44 +1,43 @@
-.update-form-container {
-  padding: 20px;
-}
-
 .update-form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.update-card {
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
 }
 
 .update-card .p-card-title {
-  font-weight: bold;
-  font-size: 14px;
+  font-weight: 600;
+  font-size: 17px;
   color: #1c1c1c;
   text-transform: uppercase;
-  border-bottom: 1px solid #e5e5e5;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .update-form-group {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
 }
 
 .p-inputtext,
-select {
+.p-dropdown {
   width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 12px;
-  font-size: 14px;
-  background-color: #f9f9f9;
-  transition: all 0.2s ease;
-  color: #1b1b1b;
+  height: 42px !important;
 }
 
 .p-inputtext:focus,
-select:focus {
-  border-bottom: 2px solid #1e88e5;
+.p-dropdown.p-focus {
+  border-color: #1e88e5 !important;
   outline: none;
 }
 
@@ -51,203 +50,95 @@ select:focus {
 }
 
 .p-field small {
-  margin-left: 0.25rem;
-  margin-top: 4px;
-  font-size: 12px;
+  font-size: 11px;
   color: red;
+  margin-top: 2px;
   display: block;
 }
 
-.p-field .pi-times-circle {
-  position: absolute;
-  right: 10px;
-  top: 36px;
-  color: red;
-  font-size: 14px;
-  pointer-events: none;
-}
-
-.p-dropdown {
-  background-color: #f5f5f5 !important;
-  border: 1px solid #ccc !important;
-  border-radius: 6px !important;
-  font-size: 14px !important;
-  height: 45px !important;
-  padding: 0 0.75rem !important;
-  box-shadow: none !important;
-  display: flex !important;
-  align-items: center !important;
-}
-
 .p-dropdown-label {
-  padding: 0 !important;
-  margin: 0 !important;
-  border: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
+  font-size: 13px !important;
 }
 
-.p-dropdown.p-focus {
-  box-shadow: none !important;
-  border: 1px solid #ccc !important;
-}
-
-.p-float-label .p-dropdown {
-  width: 100% !important;
-}
-
-.p-dropdown:hover {
-  border-color: #aaa !important;
-}
-
-.p-dropdown.p-invalid .p-inputtext,
-.p-dropdown.p-invalid {
-  border-bottom: 2px solid red !important;
-  border-radius: 10px !important; 
-}
-
-
-select {
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%204%205'%3E%3Cpath%20fill='black'%20d='M2%205L0%200h4z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 8px 10px;
-  padding-right: 24px;
-}
-
-label {
-  font-size: 13px;
-  color: #777;
-}
-
-.update-card {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
-  border-radius: 12px;
-  background-color: #fff;
-  transition: box-shadow 0.3s ease;
-  width: 100%;
-}
-
-.update-card:hover {
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-}
-
-.vertical-menu-container {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.menu-item {
-  background-color: #003366;
-  color: #ffffff;
-  border: none;
-  padding: 10px;
-  font-size: 14px;
-  cursor: pointer;
-  border-radius: 6px;
-  text-align: left;
-  width: 170px;
-}
-
-.save-btn {
-  background-color: #25ca4b;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.underline-input {
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid #ccc;
-  outline: none;
-  padding: 4px 8px;
-  background: transparent;
-}
-
-.underline-input::placeholder {
-  color: #aaa;
-  font-size: 14px;
-}
-
-.table-header th {
-  background-color: #3b82f6;
-  color: white;
+.p-float-label>label {
+  font-size: 14px !important;
   font-weight: 600;
+  color: #333;
 }
 
-.table td, .table th {
-  vertical-align: middle !important;
-}
-
-.text-danger {
-  font-size: 12px;
-  margin-top: 2px;
-}
-
-.contact-table th {
-  background-color: #0077b6;
-  color: white;
-}
-
-.vertical-menu-container {
-  padding-left: 20px !important;
+.p-inputtext,
+.p-dropdown-label {
+  font-size: 12px !important;
 }
 
 @media screen and (max-width: 768px) {
-  .update-form-container {
-    padding: 0;
-    display: flex;
-    justify-content: center;
-  }
-
   .update-form-grid {
     grid-template-columns: 1fr;
+    gap: 10px;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  }
+
+  body {
+    overflow-x: hidden;
   }
 
   .update-card {
-    width: 92% !important;
-    padding: 16px !important;
-    margin: 0 auto !important;
-    box-sizing: border-box;
+    max-width: 100%;
+    padding: 10px 10px 0px 10px;
+    margin-top: 8px;
+    margin-bottom: 4px
   }
 
-  .contact-table {
-    overflow-x: auto;
+  .update-form-group {
+    gap: 7px;
   }
 
-  .contact-table table {
-    min-width: 600px;
+  .p-inputtext,
+  .p-dropdown {
+    font-size: 12px !important;
+    height: 34px !important;
+    padding: 6px !important;
   }
 
-  .contact-table th,
-  .contact-table td {
+  .p-field {
+    margin-bottom: 20px !important;
+  }
+
+  .p-field small {
+    font-size: 10px;
+  }
+
+  .update-card .p-card-title {
     font-size: 12px;
-    padding: 6px;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
   }
 
-  .contact-table .btn {
-    width: 100%;
-    font-size: 14px;
+  .p-inputtext::placeholder,
+  .p-dropdown-label {
+    font-size: 12px !important;
   }
 
-  .underline-input {
-    font-size: 13px;
+  .p-float-label>label {
+    font-size: 13px !important;
+    font-weight: 500;
   }
 
-  .vertical-menu-container {
-    padding-left: 0 !important;
+  .p-dropdown .p-dropdown-trigger-icon {
+    font-size: 12px !important;
   }
 
+  .p-dropdown .p-dropdown-trigger {
+    width: 10px;
+  }
+
+  .p-float-label>label {
+    font-size: 10px !important;
+    font-weight: 600;
+  }
+
+  .p-inputtext,
+  .p-dropdown-label {
+    font-size: 10px !important;
+  }
 }

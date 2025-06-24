@@ -1,29 +1,29 @@
-import React, { useEffect, useState, useRef } from "react";
-import UpdateForm from "./UpdateForm";
-import VendorContact from "./VendorContact";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  createRequest,
-  updateRequest,
-  getIdRequest,
-  cityRequest,
-  currencyRequest,
-} from "../Redux/Action/LoginAction";
-import "./FormUpdate.css";
-import { FaArrowLeft } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "./Vendor.css";
+import { FaArrowLeft } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import {
+  cityRequest,
+  createRequest,
+  currencyRequest,
+  getIdRequest,
+  updateRequest,
+} from "../Redux/Action/LoginAction";
+import UpdateForm from "./UpdateForm";
+import VendorContact from "./VendorContact";
 
 const Vendor = ({ setTable }) => {
   const dispatch = useDispatch();
   const fetch = useSelector((state) => state.user.editObj);
-  const currencyList = useSelector(
-    (state) => state.currency.currencyData?.data || []
-  );
+  const currencyList = useSelector((state) => state.currency.currencyData?.data || []);
 
   const [focuseItem, setFocuseItem] = useState("BASIC INFORMATION");
   const [isUpdated, setIsUpdated] = useState(false);
   const [showErrors, setShowErrors] = useState(false);
+  const [showContactError, setShowContactError] = useState(false);
+  const [contactSubmitClicked, setContactSubmitClicked] = useState(false);
 
   const [formData, setFormdata] = useState({
     countryId: "",
@@ -66,10 +66,7 @@ const Vendor = ({ setTable }) => {
     if (fetch && !hasPatched.current) {
       hasPatched.current = true;
 
-      const currencyObj = currencyList.find(
-        (cur) => cur.id === fetch.defaultCurrencyId
-      );
-
+      const currencyObj = currencyList.find((cur) => cur.id === fetch.defaultCurrencyId);
       const updatedForm = {
         ...fetch,
         countryId: fetch.country || "",
@@ -83,9 +80,7 @@ const Vendor = ({ setTable }) => {
 
       setFormdata(updatedForm);
 
-      if (fetch.country) {
-        dispatch(cityRequest());
-      }
+      if (fetch.country) dispatch(cityRequest());
     }
   }, [fetch, currencyList, dispatch]);
 
@@ -104,58 +99,64 @@ const Vendor = ({ setTable }) => {
   const isValidForm = () => {
     const requiredFields = ["vendorName", "vendorCode", "vendorType", "countryId", "cityId"];
     const hasEmpty = requiredFields.some((field) => !formData[field]);
-
-    const contactValid = formData.contactList.every(
-      (c) => c.name && c.email && c.mobileNo
-    );
-
+    const contactValid = formData.contactList.every((c) => c.name && c.email && c.mobileNo);
     return !hasEmpty && contactValid;
   };
 
   const handleSave = () => {
     setShowErrors(true);
+    setContactSubmitClicked(true);
 
+    const contactFilled = formData.contactList.some(
+      (c) => c.name || c.email || c.mobileNo
+    );
+
+    const firstIsDefaultNo = formData.contactList[0]?.isDefault === false;
+    const basicMissing = !formData.vendorName || !formData.vendorCode || !formData.vendorType || !formData.companyRegNo || !formData.defaultCurrencyId;
+
+    if (contactFilled && basicMissing) return;
+    if (firstIsDefaultNo) return;
     if (!isValidForm()) return;
 
     const payload = generatePayload(formData);
 
     if (formData.id) {
       dispatch(updateRequest({ id: formData.id, data: payload }));
-      toast.success("Vendor updated successfully");
+      toast.success("Vendor updated successfully", { position: "top-right" });
     } else {
       dispatch(createRequest(payload));
       dispatch(getIdRequest());
-      toast.success("Vendor saved successfully");
+      toast.success("Vendor saved successfully", { position: "top-right" });
     }
 
     setIsUpdated(false);
+    setContactSubmitClicked(false);
   };
 
   const menuItems = [
     {
       label: "BASIC INFORMATION",
       content: (
-        <div className="content">
-          <UpdateForm
-            formData={formData}
-            setFormdata={handleInputChange}
-            setIsUpdated={setIsUpdated}
-            showErrors={showErrors}
-          />
-        </div>
+        <UpdateForm
+          formData={formData}
+          setFormdata={handleInputChange}
+          setIsUpdated={setIsUpdated}
+          showErrors={showErrors}
+        />
       ),
       command: () => setFocuseItem("BASIC INFORMATION"),
     },
     {
       label: "CONTACT DETAILS",
       content: (
-        <div className="content">
-          <VendorContact
-            formData={formData}
-            setFormdata={handleInputChange}
-            showErrors={showErrors}
-          />
-        </div>
+        <VendorContact
+          formData={formData}
+          setFormdata={handleInputChange}
+          showErrors={showErrors}
+          contactSubmitClicked={contactSubmitClicked}
+          setShowContactError={setShowContactError}
+          isEditMode={true}
+        />
       ),
       command: () => setFocuseItem("CONTACT DETAILS"),
     },
@@ -163,8 +164,8 @@ const Vendor = ({ setTable }) => {
 
   return (
     <div>
-      <div style={{ paddingRight: "20px" }}>
-        <button className="btn btn-secondary float-end" onClick={() => setTable("vendor")}>
+      <div className="go-back-container">
+        <button className="btn btn-secondary" onClick={() => setTable("vendor")}>
           <FaArrowLeft style={{ marginRight: "5px" }} />
           Go Back
         </button>
@@ -184,10 +185,7 @@ const Vendor = ({ setTable }) => {
         ))}
       </div>
 
-      <div
-        className="save-button-container"
-        style={{ paddingRight: "20px", paddingBottom: "50px" }}
-      >
+      <div className="save-button-container" style={{ paddingBottom: "50px" }}>
         <button
           type="submit"
           className="save-btn float-end"

@@ -5,7 +5,15 @@ import { FaEllipsisVertical } from "react-icons/fa6";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import './CreateTable.css';
-import { countryRequest, currencyRequest, getIdRequest, tableRequest, inactiveRequest, tableIdRequest, inactiveIdRequest } from '../Redux/Action/LoginAction';
+import {
+  countryRequest,
+  currencyRequest,
+  getIdRequest,
+  tableRequest,
+  inactiveRequest,
+  tableIdRequest,
+  inactiveIdRequest
+} from '../Redux/Action/LoginAction';
 
 function CreateTable({ setTable }) {
   const tableData = useSelector(state => state.login?.error?.data?.tableData);
@@ -32,11 +40,8 @@ function CreateTable({ setTable }) {
         sortingObj: null
       }
     };
-    if (status === "ACTIVE") {
-      dispatch(tableRequest(payload));
-    } else {
-      dispatch(inactiveRequest(payload));
-    }
+    if (status === "ACTIVE") dispatch(tableRequest(payload));
+    else dispatch(inactiveRequest(payload));
   };
 
   const handleNewVendor = () => {
@@ -83,116 +88,94 @@ function CreateTable({ setTable }) {
   }, [searchTerm, activeTab]);
 
   return (
-    <div>
-      <button
-        className='btn bg-success text-white float-end'
-        style={{ borderRadius: "3px", marginRight: "27px", marginTop: "-8px" }}
-        onClick={handleNewVendor}
-      >
-        + New Vendor
-      </button><br />
-
-      <div style={{ display: "flex", borderBottom: "2px solid #ccc", marginTop: "-8px", width: "100%" }}>
-        {["ACTIVE", "INACTIVE"].map(tab => (
-          <div
-            key={tab}
-            style={{
-              padding: "10px 20px",
-              cursor: "pointer",
-              borderBottom: activeTab === tab ? "3px solid #011c69" : "none",
-              color: activeTab === tab ? "#011c69" : "#000",
-              fontWeight: activeTab === tab ? "bold" : "normal"
-            }}
-            onClick={() => setActiveTab(tab)}
-          >
-            {tab}
-          </div>
-        ))}
+    <div className="table-wrapper">
+      <div className="top-bar">
+        <button className='btn btn-success' onClick={handleNewVendor}>
+          + New Vendor
+        </button>
       </div>
 
-      <div className="search-wrapper">
-        <input
-          className="search-input"
-          placeholder="Search by Vendor Name"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <FaSearch className="search-icon" />
+      <div className="tab-search-wrapper">
+        <div className="tabs">
+          {["ACTIVE", "INACTIVE"].map(tab => (
+            <span
+              key={tab}
+              className={`tab ${activeTab === tab ? 'active' : ''}`}
+              onClick={() => setActiveTab(tab)}
+            >
+              {tab}
+            </span>
+          ))}
+        </div>
+        <div className="search-box">
+          <input
+            className="form-control"
+            placeholder="Search by Vendor Name"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <FaSearch className="search-icon" />
+        </div>
       </div>
 
       <div className="vendor-table-container">
-        <table className="vendor-table w-100 text-center mt-3">
-          <thead>
-            <tr>
-              <th>S.NO</th>
-              <th>NAME</th>
-              <th>VENDOR CODE</th>
-              <th>TYPE</th>
-              <th>ADDRESS</th>
-              <th>COUNTRY</th>
-              <th>STATUS</th>
-              <th>ACTION</th>
-            </tr>
-          </thead>
-          <tbody>
-            {paginatedData.length > 0 ? (
-              paginatedData.map((item, index) => (
-                <tr key={index}>
-                  <td>{startIndex + index + 1}</td>
-                  <td><span className="vendor-link" onClick={() => handleEdit(item.id)}>{item.vendorName}</span></td>
-                  <td>{item.vendorCode}</td>
-                  <td>{item.vendorType}</td>
-                  <td
-                    title={item.address}
-                    style={{
-                      maxWidth: "150px",
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis"
-                    }}
-                  >
-                    {item.address}
-                  </td>
-                  <td>{item.country}</td>
-                  <td>{item.status}</td>
-                  <td>
-                    <FaEllipsisVertical
-                      style={{ cursor: "pointer" }}
-                      onClick={() => {
-                        setSelectedItem(item);
-                        setShowModal(true);
-                      }}
-                      title={`Mark as ${item.status === "ACTIVE" ? "INACTIVE" : "ACTIVE"}`}
-                    />
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr><td colSpan="8">No records found</td></tr>
-            )}
-          </tbody>
-        </table>
+        <div className="table-only-wrapper">
+          <table className="vendor-table table table-bordered table-hover text-center w-100">
+            <thead className="table-light">
+              <tr>
+                <th>S.NO</th>
+                <th>NAME</th>
+                <th>VENDOR CODE</th>
+                <th>TYPE</th>
+                <th>ADDRESS</th>
+                <th>COUNTRY</th>
+                <th>STATUS</th>
+                <th>ACTION</th>
+              </tr>
+            </thead>
+            <tbody>
+              {paginatedData.length > 0 ? (
+                paginatedData.map((item, index) => (
+                  <tr key={index}>
+                    <td>{startIndex + index + 1}</td>
+                    <td><span className="vendor-link" onClick={() => handleEdit(item.id)}>{item.vendorName}</span></td>
+                    <td>{item.vendorCode}</td>
+                    <td>{item.vendorType}</td>
+                    <td title={item.address} className="text-truncate" style={{ maxWidth: '150px' }}>{item.address}</td>
+                    <td>{item.country}</td>
+                    <td>{item.status}</td>
+                    <td>
+                      <FaEllipsisVertical
+                        style={{ cursor: "pointer" }}
+                        onClick={() => { setSelectedItem(item); setShowModal(true); }}
+                        title={`Mark as ${item.status === "ACTIVE" ? "INACTIVE" : "ACTIVE"}`}
+                      />
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr><td colSpan="8">No records found</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {totalPages > 1 && (
-        <div className="pagination mt-3" style={{ display: 'flex', justifyContent: 'center' }}>
-          {[...Array(totalPages)].map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentPage(i + 1)}
-              style={{
-                marginRight: '8px',
-                padding: '5px 10px',
-                borderRadius: '4px',
-                backgroundColor: currentPage === i + 1 ? '#007bff' : '#e9ecef',
-                color: currentPage === i + 1 ? 'white' : 'black',
-                border: 'none',
-                cursor: 'pointer'
-              }}
-            >
-              {i + 1}
-            </button>
-          ))}
+        <div className="pagination-wrapper">
+          <button
+            className="btn btn-sm btn-outline-primary"
+            onClick={() => setCurrentPage(currentPage - 1)}
+            disabled={currentPage === 1}
+          >Previous</button>
+
+          <span className="fw-bold mx-2">Page {currentPage} of {totalPages}</span>
+
+          <button
+            className="btn btn-sm btn-outline-primary"
+            onClick={() => setCurrentPage(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >Next</button>
         </div>
       )}
 
@@ -201,7 +184,7 @@ function CreateTable({ setTable }) {
           <div className="custom-modal">
             <h4 className="modal-title">Confirmation</h4>
             <p>Are you sure you want to {selectedItem.status === "ACTIVE" ? "INACTIVE" : "ACTIVE"} "<strong>{selectedItem.vendorName}</strong>"?</p>
-            <div className="modal-actions">
+            <div className="modal-actions mt-3">
               <button className="btn btn-secondary me-2" onClick={() => setShowModal(false)}>No</button>
               <button className="btn btn-primary" onClick={handleConfirm}>Yes</button>
             </div>
