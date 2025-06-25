@@ -36,32 +36,41 @@ function VendorContact({
   };
 
   const deleteContactRow = (index) => {
-    const contact = contactList[index];
     const totalRows = contactList.length;
-    const isFilled = contact.name || contact.email || contact.mobileNo;
+    const isNewVendor = !formData.id;
+
+    const firstRow = contactList[0];
+    const isFirstRowFilled =
+      firstRow.name?.trim() || firstRow.email?.trim() || firstRow.mobileNo?.trim();
 
     if (totalRows === 1) {
-      if (isFilled) {
+      if (isNewVendor) {
+        toast.warning("Can't delete the row when there is only one row", {
+          position: 'top-right',
+        });
+        return;
+      } else {
         const updated = [...contactList];
-        updated[index] = {
-          ...contact,
+        updated[0] = {
+          ...updated[0],
           name: '',
           email: '',
           mobileNo: '',
           isDefault: undefined,
         };
         setFormdata({ ...formData, contactList: updated });
-      } else {
+
         toast.warning("Can't delete the row when there is only one row", {
           position: 'top-right',
         });
+        return;
       }
-      return;
     }
 
     const updatedList = contactList.filter((_, i) => i !== index);
     setFormdata({ ...formData, contactList: updatedList });
   };
+
 
   const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const isValidPhone = (phone) => /^\d{7,15}$/.test(phone);
@@ -93,7 +102,7 @@ function VendorContact({
 
     setLocalError(firstIsDefaultNo);
     setShowContactError(firstIsDefaultNo);
-  }, [contactSubmitClicked]);
+  }, [contactSubmitClicked, showErrors, formData]);
 
   return (
     <div className="contact-table-wrapper">
@@ -127,19 +136,26 @@ function VendorContact({
                     value={contact.name}
                     onChange={(e) => handleContactChange(index, 'name', e.target.value)}
                   />
-                  {showErrors && !contact.name && <small className="p-error">Name is required</small>}
+                  {showErrors && !contact.name && (
+                    <small className="p-error">Name is required</small>
+                  )}
                 </div>
               </td>
 
               <td>
                 <div className="input-container">
                   <input
-                    className={`underline-input ${showErrors && (!contact.email || !isValidEmail(contact.email)) ? 'p-invalid' : ''}`}
+                    className={`underline-input ${showErrors && (!contact.email || !isValidEmail(contact.email))
+                        ? 'p-invalid'
+                        : ''
+                      }`}
                     placeholder="Email"
                     value={contact.email}
                     onChange={(e) => handleContactChange(index, 'email', e.target.value)}
                   />
-                  {showErrors && !contact.email && <small className="p-error">Email is required</small>}
+                  {showErrors && !contact.email && (
+                    <small className="p-error">Email is required</small>
+                  )}
                   {showErrors && contact.email && !isValidEmail(contact.email) && (
                     <small className="p-error">Invalid email format</small>
                   )}
@@ -149,12 +165,17 @@ function VendorContact({
               <td>
                 <div className="input-container">
                   <input
-                    className={`underline-input ${showErrors && (!contact.mobileNo || !isValidPhone(contact.mobileNo)) ? 'p-invalid' : ''}`}
+                    className={`underline-input ${showErrors && (!contact.mobileNo || !isValidPhone(contact.mobileNo))
+                        ? 'p-invalid'
+                        : ''
+                      }`}
                     placeholder="Phone No"
                     value={contact.mobileNo}
                     onChange={(e) => handleContactChange(index, 'mobileNo', e.target.value)}
                   />
-                  {showErrors && !contact.mobileNo && <small className="p-error">Phone number is required</small>}
+                  {showErrors && !contact.mobileNo && (
+                    <small className="p-error">Phone number is required</small>
+                  )}
                   {showErrors && contact.mobileNo && !isValidPhone(contact.mobileNo) && (
                     <small className="p-error">Invalid phone number</small>
                   )}
@@ -168,8 +189,8 @@ function VendorContact({
                     contact.isDefault === true
                       ? 'true'
                       : contact.isDefault === false
-                      ? 'false'
-                      : ''
+                        ? 'false'
+                        : ''
                   }
                   onChange={(e) =>
                     handleContactChange(index, 'isDefault', e.target.value === 'true')
@@ -184,7 +205,7 @@ function VendorContact({
               </td>
 
               <td>
-                {isEditMode && contact.id && (
+                {isEditMode && formData.id && (
                   <FaCheck
                     style={{ color: 'green', marginRight: '10px', cursor: 'pointer' }}
                     onClick={handleTickClick}
@@ -194,6 +215,7 @@ function VendorContact({
                 <FaTrash
                   style={{ color: 'red', cursor: 'pointer' }}
                   onClick={() => deleteContactRow(index)}
+                  title="Delete Row"
                 />
               </td>
             </tr>

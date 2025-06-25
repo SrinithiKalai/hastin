@@ -57,7 +57,12 @@ function Modal({ setVisible, visible }) {
       jwt: success?.data?.jwt
     };
     dispatch(apiRequest(payload));
-    navigate('/table');
+    navigate('/table', {
+      state: {
+        loginSuccess: true,
+        accessCodeVerified: true
+      }
+    });
   };
 
   return (
@@ -128,7 +133,7 @@ function Modal({ setVisible, visible }) {
           }}
         >
           <span style={{ marginRight: '5px', marginTop: "5px" }}>🕒</span>
-          <span style={{marginTop: "5px"}}>{formatTime(timer)}</span>
+          <span style={{ marginTop: "5px" }}>{formatTime(timer)}</span>
         </div>
 
         <button

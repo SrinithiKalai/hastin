@@ -122,11 +122,11 @@ const Vendor = ({ setTable }) => {
 
     if (formData.id) {
       dispatch(updateRequest({ id: formData.id, data: payload }));
-      toast.success("Vendor updated successfully", { position: "top-right" });
+      toast.success("Vendor Updated successfully", { position: "top-right" });
     } else {
       dispatch(createRequest(payload));
       dispatch(getIdRequest());
-      toast.success("Vendor saved successfully", { position: "top-right" });
+      toast.success("Vendor Created successfully", { position: "top-right" });
     }
 
     setIsUpdated(false);

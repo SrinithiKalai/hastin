@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import hastin from '../assets/hastin_logo.png';
 import userlogo from '../assets/userlogo.png';
 import CreateTable from './CreateTable';
 import Vendor from './Vendor';
 import './TableHastin.css';
 import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 
 function HastinTable() {
@@ -14,8 +14,15 @@ function HastinTable() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showMasterSubMenu, setShowMasterSubMenu] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
-  const navigate = useNavigate();
   const logoutRef = useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.loginSuccess) {
+      toast.success('Logged in successfully');
+    }
+  }, [location.state]);
 
   const toggleMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -200,10 +207,8 @@ function HastinTable() {
           </div>
         )}
       </div>
-
       {table === 'vendor' && <CreateTable setTable={setTable} />}
       {table === 'vendorDetails' && <Vendor setTable={setTable} />}
-
       <ToastContainer position='top-right' autoClose={2000} />
     </>
   );

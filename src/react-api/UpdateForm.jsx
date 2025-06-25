@@ -41,9 +41,10 @@ const UpdateForm = ({ formData, setFormdata, setIsUpdated, showErrors }) => {
     (city) => city.countryId === formData.countryId && (city.cityName || city.name)
   );
 
-  const renderInput = (label, name, required = false) => {
-    const value = formData[name] || "";
-    const isError = required && showErrors && value.trim() === "";
+const renderInput = (label, name, required = false) => {
+  const value = formData[name] || "";
+  const isError = required && showErrors && (!value || value.trim() === "");
+
 
     return (
       <div className="p-field" style={{ position: "relative", marginBottom: "1.5rem" }}>

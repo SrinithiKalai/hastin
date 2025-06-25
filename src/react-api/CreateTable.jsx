@@ -40,8 +40,11 @@ function CreateTable({ setTable }) {
         sortingObj: null
       }
     };
-    if (status === "ACTIVE") dispatch(tableRequest(payload));
-    else dispatch(inactiveRequest(payload));
+    if (status === "ACTIVE") {
+      dispatch(tableRequest(payload));
+    } else {
+      dispatch(inactiveRequest(payload));
+    }
   };
 
   const handleNewVendor = () => {
@@ -101,7 +104,12 @@ function CreateTable({ setTable }) {
             <span
               key={tab}
               className={`tab ${activeTab === tab ? 'active' : ''}`}
-              onClick={() => setActiveTab(tab)}
+              onClick={() => {
+                if (activeTab !== tab) {
+                  setActiveTab(tab);
+                  toast.success("Vendor fetched successfully");
+                }
+              }}
             >
               {tab}
             </span>

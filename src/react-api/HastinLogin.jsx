@@ -26,12 +26,17 @@ function HastinLogin() {
   });
 
   useEffect(() => {
-    if (!loading && response && !error) {
-      localStorage.setItem("isLoggedIn", true);
-      toast.success('Login successfully!');
-      setVisible(true);
-    }
-  }, [loading, response, error]);
+  if (!loading && response && !error) {
+    localStorage.setItem("isLoggedIn", true);
+    toast.success('OTP Sent Successfully');
+    setVisible(true);
+  }
+
+  if (!loading && error) {
+    toast.error('Username and Password is incorrect');
+  }
+}, [loading, response, error]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
