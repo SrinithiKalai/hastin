@@ -68,12 +68,7 @@ function HastinTable() {
               <img
                 src={userlogo}
                 alt='Profile'
-                style={{
-                  height: '45px',
-                  width: '45px',
-                  borderRadius: '50%',
-                  cursor: 'pointer'
-                }}
+                style={{ height: '45px', width: '45px', borderRadius: '50%', cursor: 'pointer' }}
                 onClick={() => setShowLogout(!showLogout)}
               />
               {showLogout && (
@@ -169,11 +164,55 @@ function HastinTable() {
       </div>
 
       <div className='d-md-none'>
-        <nav className='navbar navbar-light bg-light d-flex justify-content-between px-3'>
+        <nav className='navbar navbar-light bg-light d-flex justify-content-between px-3 align-items-center'>
           <img src={hastin} alt='Logo' style={{ height: '40px' }} />
-          <button className='btn' onClick={toggleMenu}>
-            <span className='navbar-toggler-icon'></span>
-          </button>
+          <div className="d-flex align-items-center gap-2">
+            <button className='btn p-1' onClick={toggleMenu}>
+              <span className='navbar-toggler-icon'></span>
+            </button>
+            <div className="position-relative" ref={logoutRef}>
+              <img
+                src={userlogo}
+                alt='Profile'
+                style={{
+                  height: '40px',
+                  width: '40px',
+                  borderRadius: '50%',
+                  cursor: 'pointer'
+                }}
+                onClick={() => setShowLogout(!showLogout)}
+              />
+              {showLogout && (
+                <div className="position-absolute" style={{ top: '50px', right: 0, zIndex: 999, width: "160px" }}>
+                  <div style={{
+                    backgroundColor: '#4a90e2',
+                    color: 'white',
+                    padding: '10px 15px',
+                    borderTopLeftRadius: '8px',
+                    borderTopRightRadius: '8px',
+                    fontWeight: '600'
+                  }}>
+                    Ebrain Technologies
+                  </div>
+                  <div style={{
+                    backgroundColor: 'white',
+                    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)',
+                    borderBottomLeftRadius: '8px',
+                    borderBottomRightRadius: '8px'
+                  }}>
+                    <div
+                      className="d-flex align-items-center px-3 py-2 text-danger"
+                      onClick={handleLogout}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      <span style={{ fontSize: '18px', marginRight: '10px' }}>⏻</span>
+                      <span>LOGOUT</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </nav>
 
         {isMobileMenuOpen && (
@@ -207,6 +246,7 @@ function HastinTable() {
           </div>
         )}
       </div>
+
       {table === 'vendor' && <CreateTable setTable={setTable} />}
       {table === 'vendorDetails' && <Vendor setTable={setTable} />}
       <ToastContainer position='top-right' autoClose={2000} />

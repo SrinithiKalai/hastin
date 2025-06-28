@@ -4,7 +4,6 @@ import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
 import { FloatLabel } from "primereact/floatlabel";
 import { Dropdown } from "primereact/dropdown";
-import { countryRequest, cityRequest, currencyRequest } from "../Redux/Action/LoginAction";
 import "./FormUpdate.css";
 
 const UpdateForm = ({ formData, setFormdata, setIsUpdated, showErrors }) => {
@@ -14,17 +13,13 @@ const UpdateForm = ({ formData, setFormdata, setIsUpdated, showErrors }) => {
   const cityList = useSelector((state) => state.city.cityData?.data || []);
   const currencyList = useSelector((state) => state.currency.currencyData?.data || []);
 
+
   useEffect(() => {
-    dispatch(countryRequest());
-    dispatch(currencyRequest());
-    dispatch(cityRequest());
-  }, [dispatch]);
+    if (formData.countryId);
+  }, [dispatch, formData.countryId]);
 
   const handleChangeInput = (name, value) => {
-    setFormdata((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormdata((prev) => ({ ...prev, [name]: value }));
     setIsUpdated?.(true);
   };
 
@@ -33,18 +28,12 @@ const UpdateForm = ({ formData, setFormdata, setIsUpdated, showErrors }) => {
     handleChangeInput("cityId", "");
   };
 
-  const filteredCountries = countryList.filter(
-    (c) => c?.name && c?.name.trim() !== "" && c?.name !== "N/A" && c?.name !== "." && c?.id
-  );
+  const filteredCountries = countryList.filter((c) => c?.name && c?.name.trim() !== "" && c?.name !== "N/A" && c?.name !== "." && c?.id);
+  const filteredCities = cityList.filter((city) => city.countryId === formData.countryId && (city.cityName || city.name));
 
-  const filteredCities = cityList.filter(
-    (city) => city.countryId === formData.countryId && (city.cityName || city.name)
-  );
-
-const renderInput = (label, name, required = false) => {
-  const value = formData[name] || "";
-  const isError = required && showErrors && (!value || value.trim() === "");
-
+  const renderInput = (label, name, required = false) => {
+    const value = formData[name] || "";
+    const isError = required && showErrors && (!value || value.trim() === "");
 
     return (
       <div className="p-field" style={{ position: "relative", marginBottom: "1.5rem" }}>
@@ -86,9 +75,7 @@ const renderInput = (label, name, required = false) => {
                 />
                 <label htmlFor="vendorType">Vendor Type</label>
               </FloatLabel>
-              {showErrors && !formData.vendorType && (
-                <small style={{ color: "red" }}>Required</small>
-              )}
+              {showErrors && !formData.vendorType && <small style={{ color: "red" }}>Required</small>}
             </div>
             {renderInput("Company Registration No", "companyRegNo", true)}
             <div className="p-field mb-4">
@@ -97,19 +84,14 @@ const renderInput = (label, name, required = false) => {
                   id="defaultCurrencyId"
                   name="defaultCurrencyId"
                   value={formData.defaultCurrencyId || ""}
-                  options={currencyList.map((c) => ({
-                    label: c.name,
-                    value: c.id,
-                  }))}
+                  options={currencyList.map((c) => ({ label: c.name, value: c.id }))}
                   onChange={(e) => handleChangeInput("defaultCurrencyId", e.value)}
                   placeholder="Choose Currency"
                   className={`w-full ${showErrors && !formData.defaultCurrencyId ? "p-invalid" : ""}`}
                 />
                 <label htmlFor="defaultCurrencyId">Currency</label>
               </FloatLabel>
-              {showErrors && !formData.defaultCurrencyId && (
-                <small style={{ color: "red" }}>Required</small>
-              )}
+              {showErrors && !formData.defaultCurrencyId && <small style={{ color: "red" }}>Required</small>}
             </div>
           </div>
         </Card>
@@ -124,19 +106,14 @@ const renderInput = (label, name, required = false) => {
                   id="countryId"
                   name="countryId"
                   value={formData.countryId || ""}
-                  options={filteredCountries.map((country) => ({
-                    label: country.name,
-                    value: country.id,
-                  }))}
+                  options={filteredCountries.map((country) => ({ label: country.name, value: country.id }))}
                   onChange={(e) => handleChangeCountry(e.value)}
                   placeholder="Choose Country"
                   className={`w-full ${showErrors && !formData.countryId ? "p-invalid" : ""}`}
                 />
                 <label htmlFor="countryId">Country</label>
               </FloatLabel>
-              {showErrors && !formData.countryId && (
-                <small style={{ color: "red" }}>Required</small>
-              )}
+              {showErrors && !formData.countryId && <small style={{ color: "red" }}>Required</small>}
             </div>
             <div className="p-field mb-4">
               <FloatLabel>
@@ -144,10 +121,7 @@ const renderInput = (label, name, required = false) => {
                   id="cityId"
                   name="cityId"
                   value={formData.cityId || ""}
-                  options={filteredCities.map((city) => ({
-                    label: city.cityName || city.name,
-                    value: city.id,
-                  }))}
+                  options={filteredCities.map((city) => ({ label: city.cityName || city.name, value: city.id }))}
                   onChange={(e) => handleChangeInput("cityId", e.value)}
                   placeholder={formData.countryId && filteredCities.length === 0 ? "No cities found" : "Select City"}
                   disabled={!formData.countryId}
@@ -155,9 +129,7 @@ const renderInput = (label, name, required = false) => {
                 />
                 <label htmlFor="cityId">City</label>
               </FloatLabel>
-              {showErrors && !formData.cityId && (
-                <small style={{ color: "red" }}>Required</small>
-              )}
+              {showErrors && !formData.cityId && <small style={{ color: "red" }}>Required</small>}
             </div>
             {renderInput("Zip Code", "postalCode", true)}
           </div>

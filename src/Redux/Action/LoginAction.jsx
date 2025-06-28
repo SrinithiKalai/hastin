@@ -245,3 +245,42 @@ export const updateFailure = (error) => {
         payload: error
     }
 }
+
+export const tickRequest = (payload) => {
+    return {
+        type: Type.TICK_REQUEST,
+        payload,
+    }
+}
+export const tickSuccess = (data) => {
+    return {
+        type: Type.TICK_SUCCESS,
+        payload: data
+    }
+}
+export const tickFailure = (error) => {
+    return {
+        type: Type.TICK_FAILURE,
+        payload: error
+    }
+}
+
+export const contactRequest = (payload) => {
+    return {
+        type: Type.CONTACT_REQUEST,
+        payload,
+    }
+}
+export const contactSuccess = (data) => {
+    return {
+        type: Type.CONTACT_SUCCESS,
+        payload: data
+    }
+}
+export const contactFailure = (error) => {
+    return {
+        type: Type.CONTACT_FAILURE,
+        payload: error
+    }
+}
+

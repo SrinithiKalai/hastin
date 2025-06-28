@@ -16,14 +16,17 @@ import {
 } from '../Redux/Action/LoginAction';
 
 function CreateTable({ setTable }) {
-  const tableData = useSelector(state => state.login?.error?.data?.tableData);
   const dispatch = useDispatch();
+
+  const tableData = useSelector(state => state.login?.error?.data?.tableData);
+  const countryList = useSelector(state => state.country?.countryData?.data || []);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState("ACTIVE");
   const [showModal, setShowModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const itemsPerPage = 10;
 
@@ -47,16 +50,24 @@ function CreateTable({ setTable }) {
     }
   };
 
+  const getCountryName = (countryId) => {
+    const match = countryList.find((c) => c.id === countryId);
+    return match?.name || countryId;
+  };
+
   const handleNewVendor = () => {
-    dispatch(countryRequest());
-    dispatch(currencyRequest());
-    setTable('vendorDetails');
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      setTable('vendorDetails');
+    }, 1000);
   };
 
   const handleEdit = (id) => {
     dispatch(getIdRequest(id));
     dispatch(countryRequest());
     dispatch(currencyRequest());
+    localStorage.setItem("vendorFetched", "true");
     setTable('vendorDetails');
   };
 
@@ -92,10 +103,16 @@ function CreateTable({ setTable }) {
 
   return (
     <div className="table-wrapper">
+
+      {isLoading && (
+        <div className="loader-overlay">
+          <div className="loader-shape"></div>
+          <div className="loader-text">Loading...</div>
+        </div>
+      )}
+
       <div className="top-bar">
-        <button className='btn btn-success' onClick={handleNewVendor}>
-          + New Vendor
-        </button>
+        <button className='btn btn-success' onClick={handleNewVendor}>+ New Vendor</button>
       </div>
 
       <div className="tab-search-wrapper">
@@ -110,9 +127,7 @@ function CreateTable({ setTable }) {
                   toast.success("Vendor fetched successfully");
                 }
               }}
-            >
-              {tab}
-            </span>
+            >{tab}</span>
           ))}
         </div>
         <div className="search-box">
@@ -150,7 +165,7 @@ function CreateTable({ setTable }) {
                     <td>{item.vendorCode}</td>
                     <td>{item.vendorType}</td>
                     <td title={item.address} className="text-truncate" style={{ maxWidth: '150px' }}>{item.address}</td>
-                    <td>{item.country}</td>
+                    <td>{getCountryName(item.country)}</td>
                     <td>{item.status}</td>
                     <td>
                       <FaEllipsisVertical

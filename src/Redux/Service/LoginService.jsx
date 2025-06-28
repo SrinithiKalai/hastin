@@ -82,14 +82,14 @@ export function inactiveIdService(id) {
 }
 
 export function currencyService() {
-    const token = localStorage.getItem("jwt");
-    return axios({
-        method: "GET",
-        url: Hastin + "api/meta/currencies",
-        headers: {
-            Authorization: `BslogiKey ${token}`,
-        },
-    });
+  const token = localStorage.getItem("jwt");
+  return axios({
+    method: "GET",
+    url: Hastin + "api/meta/currencies",
+    headers: {
+      Authorization: `BslogiKey ${token}`,
+    },
+  });
 }
 
 export function countryService() {
@@ -107,7 +107,7 @@ export function cityService() {
   const token = localStorage.getItem("jwt");
   return axios({
     method: "GET",
-     url: Hastin + "api/countryCities/get",
+    url: Hastin + "api/countryCities/get",
     headers: {
       Authorization: `BslogiKey ${token}`,
     },
@@ -150,3 +150,31 @@ export function updateService(id, payload) {
   });
 }
 
+export function tickService(payload) {
+  const token = localStorage.getItem("jwt");
+  return axios({
+    method: "PUT",
+    url: Hastin + "api/vendor/contact/update",
+    data: payload,
+    headers: {
+      Authorization: `BslogiKey ${token}`
+    }
+  });
+}
+
+export function contactService(payload) {
+  const token = localStorage.getItem("jwt");
+
+  if (!token) {
+    throw new Error("JWT token missing in localStorage");
+  }
+
+  return axios({
+    method: "POST",
+    url: Hastin + "api/vendor/contact/create",
+    data: payload,
+    headers: {
+      Authorization: "BslogiKey " + token
+    }
+  });
+}

@@ -1,5 +1,5 @@
-import { apiFailure, apiSuccess, cityFailure, citySuccess, countryFailure, countrySuccess, createFailure, createSuccess, currencyFailure, currencySuccess, getIdFailure, getIdSuccess, inactiveFailure, inactiveIdFailure, inactiveIdSuccess, inactiveSuccess, loginFailure, loginSuccess, resendFailure, resendSuccess, tableFailure, tableIdFailure, tableIdSuccess, tableSuccess, updateFailure, updateSuccess } from '../Action/LoginAction'
-import { apiService, cityService, countryService, createService, currencyService, getIdService, inactiveIdService, inactiveService, loginService, resendService, tableIdService, tableService, updateService } from '../Service/LoginService'
+import { apiFailure, apiSuccess, cityFailure, citySuccess, contactFailure, contactSuccess, countryFailure, countrySuccess, createFailure, createSuccess, currencyFailure, currencySuccess, getIdFailure, getIdSuccess, inactiveFailure, inactiveIdFailure, inactiveIdSuccess, inactiveSuccess, loginFailure, loginSuccess, resendFailure, resendSuccess, tableFailure, tableIdFailure, tableIdSuccess, tableSuccess, tickFailure, tickSuccess, updateFailure, updateSuccess } from '../Action/LoginAction'
+import { apiService, cityService, contactService, countryService, createService, currencyService, getIdService, inactiveIdService, inactiveService, loginService, resendService, tableIdService, tableService, tickService, updateService } from '../Service/LoginService'
 import * as TYPE from '../Types'
 import { call, put, takeLatest } from 'redux-saga/effects'
 
@@ -132,6 +132,26 @@ function* updateSaga({ payload }) {
   }
 }
 
+function* tickSaga({ payload }) {
+  try {
+    const response = yield call(tickService, payload);
+    yield put(tickSuccess(response.data));
+  }
+  catch (err) {
+    yield put(tickFailure(err))
+  }
+}
+
+function* contactSaga({payload}) {
+  try{
+    const response = yield call(contactService, payload);
+    yield put(contactSuccess(response.data));
+  }
+  catch (err) {
+    yield put(contactFailure(err))
+  }
+}
+
 export default function* login() {
   yield takeLatest(TYPE.LOGIN_REQUEST, loginSaga);
   yield takeLatest(TYPE.API_REQUEST, apiSaga);
@@ -146,4 +166,6 @@ export default function* login() {
   yield takeLatest(TYPE.CREATE_REQUEST, createSaga);
   yield takeLatest(TYPE.GET_ID_REQUEST, getIdSaga);
   yield takeLatest(TYPE.UPDATE_REQUEST, updateSaga);
+  yield takeLatest(TYPE.TICK_REQUEST, tickSaga);
+  yield takeLatest(TYPE.CONTACT_REQUEST, contactSaga);
 }

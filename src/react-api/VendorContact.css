@@ -84,6 +84,16 @@
     align-items: flex-start;
 }
 
+.error-box {
+    color: brown;
+    background-color: bisque;
+    padding-left: 200px;
+    padding-right: 200px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+
 
 @media screen and (max-width: 768px) {
     .contact-table-wrapper {
